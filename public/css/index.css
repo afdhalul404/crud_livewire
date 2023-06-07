@@ -88,13 +88,10 @@ nav .user ul .strip{
     display: none;
 }
 
-.search {
-    padding-left: 50px;
-}
-
 .search input {
     width: 100%;
-    margin-left: 30px;
+    margin-left: 20px;
+    padding-right: 19px;
 }
 
 ::placeholder {
@@ -227,6 +224,16 @@ footer .copyright{
 .dropdown-menu a:hover {
   background-color: #f7f7f7;
 }
+
+/* search admin */
+
+    .form-input:focus,
+    .form-input:active {
+        outline: none;
+        border-color: transparent;
+        box-shadow: none;
+    }
+               
 
 
 

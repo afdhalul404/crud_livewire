@@ -40,32 +40,32 @@
 // }
 
 
-const selected = document.querySelector(".selected");
-const optionsContainer = document.querySelector(".options-container");
-const optionsList = document.querySelectorAll(".option");
+// const selected = document.querySelector(".selected");
+// const optionsContainer = document.querySelector(".options-container");
+// const optionsList = document.querySelectorAll(".option");
 
-selected.addEventListener("click", () => {
-    optionsContainer.classList.toggle("active");
-    selected.classList.toggle("active");
+// selected.addEventListener("click", () => {
+//     optionsContainer.classList.toggle("active");
+//     selected.classList.toggle("active");
 
-    // Putar ikon saat dropdown aktif
-    const icon = selected.querySelector("i");
-    if (optionsContainer.classList.contains("active")) {
-        icon.style.transform = "rotate(180deg)";
-    } else {
-        icon.style.transform = "rotate(0deg)";
-    }
-});
+//     // Putar ikon saat dropdown aktif
+//     const icon = selected.querySelector("i");
+//     if (optionsContainer.classList.contains("active")) {
+//         icon.style.transform = "rotate(180deg)";
+//     } else {
+//         icon.style.transform = "rotate(0deg)";
+//     }
+// });
 
-optionsList.forEach((o) => {
-    o.addEventListener("click", () => {
-        selected.innerHTML = o.querySelector("label").innerHTML;
-        optionsContainer.classList.remove("active");
-        selected.classList.remove("active");
+// optionsList.forEach((o) => {
+//     o.addEventListener("click", () => {
+//         selected.innerHTML = o.querySelector("label").innerHTML;
+//         optionsContainer.classList.remove("active");
+//         selected.classList.remove("active");
 
-        // Tambahkan kembali ikon setelah item terpilih
-        const icon = document.createElement("i");
-        icon.classList.add("ri-arrow-down-s-line");
-        selected.appendChild(icon);
-    });
-});
+//         // Tambahkan kembali ikon setelah item terpilih
+//         const icon = document.createElement("i");
+//         icon.classList.add("ri-arrow-down-s-line");
+//         selected.appendChild(icon);
+//     });
+// });

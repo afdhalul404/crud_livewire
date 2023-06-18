@@ -64,8 +64,10 @@ Route::get('/kp/detail/{id}', [PublicController::class, 'showKp']);
 
 //Pencarian
 Route::get('search/', [PublicController::class, 'search']);
-Route::get('{category}/search', [PublicController::class, 'searchCategory'])
+Route::get('{category}/{filter}/search', [PublicController::class, 'searchCategory'])
    ->name('search.category');
+
+Route::redirect('/pustaka_lainnya', '/buku');
 
 
 

@@ -70,9 +70,9 @@
       @endif
       @else
       @foreach ($buku as $item)
-      <div class="card card-content border-0 rounded-4 shadow-xm mb-4 bg-body rounded py-md-3 px-2 px-md-0"
-         style="background-color: #f0f0f0; box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;">
-         <div class="row d-flex align-items-center ">
+      <div data-aos="fade-right" class="card card-content border-0 rounded-4 shadow-xm mb-4 bg-body rounded py-md-3 px-2 px-md-0"
+         style="background-color: #f0f0f0; box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff; z-index: 1;">
+         <div class="row d-flex align-items-center">
             <div class="col-md-2">
                @if ($item->cover)
                <img src="{{ asset('/storage/buku_cover/' . $item->cover) }}" alt="" width="140px" height="170px"
@@ -83,7 +83,10 @@
             </div>
             <div class="col-md-8">
                <div class="item d-flex flex-column" style="padding-top: 20px">
-                  <h5>{{ $item->judul_buku }}</h5>
+                  <div class="">
+                     <h5>{{ $item->judul_buku }}</h5>
+                     <p class="badge rounded-pill" style="background-color: #03DC74; font-size: 12px">Buku</p>
+                  </div>
                   <div class="d-flex flex-column flex-md-row align-items gap-1 gap-md-4"
                      style="height: 90%; padding-bottom: 10px;">
                      <div class="d-flex gap-1">

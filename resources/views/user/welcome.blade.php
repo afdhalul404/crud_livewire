@@ -3,14 +3,15 @@
 <div class="welcome-page">
    <div class="container d-flex align-items-center">
       <div class="col-12 col-md-6 teks">
-         <h2>
-            Selamat Datang di Perpustakaan Digital<br> Jurusan Teknik Informatika <br>Universitas
+         <h2  data-aos="fade-up"
+     data-aos-anchor-placement="bottom-bottom">
+            Selamat Datang di E-Library<br> Jurusan Teknik Informatika <br>Universitas
             Haluoleo
          </h2>
-         <p>Dapatkan akses mudah ke koleksi digital, yang mencakup buku, <br>tugas akhir, dan laporan
+         <p data-aos="fade-right">Dapatkan akses mudah ke koleksi digital, yang mencakup buku, <br>tugas akhir, dan laporan
             kerja
             praktek terbaru dalam <br>bidang jurusan Teknik Informatika</p>
-         <div class="card mt-5" style="
+         <div data-aos="flip-down" class="card mt-5" style="
                             background: rgba( 255, 255, 255, 0.1 );
                             box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
                             backdrop-filter: blur( 11px );
@@ -23,7 +24,7 @@
                   <h4 class="fw-bolder counter">{{ $buku }}</h4>
                </div>
                <div class="col-4 border-end border-start">
-                  <h6 style="color: #FE8E45">Laporan</h6>
+                  <h6 style="color: #FE8E45">Laporan KP</h6>
                   <h4 class="fw-bolder counter">{{ $kp }}</h4>
                </div>
                <div class="col-4">
@@ -34,7 +35,7 @@
             </div>
          </div>
       </div>
-      <div class="col-6">
+      <div class="col-6" data-aos="fade-left">
          <img src="img/welcome.png" alt="" class="d-none d-md-block img-fluid " width="500px">
       </div>
    </div>
@@ -44,22 +45,91 @@
    @include('user.layouts.card-search')
 </div>
 
-<div class="pt-5 " id="tentangKami">
+<div class="" style="background-color: #fff; margin-top: -95px; padding-top: 100px; padding-bottom: 50px;">
+
    <div class="container">
-      <h3 class="text-center fw-bolder">Sambutan Ketua Jurusan <br/>Teknik Informatika</h3>
+       @php
+      $allData = array_merge(
+      $bukuTerbanyakDilihat->map(function ($item) {
+      return ['categori' => 'buku', 'kode' => $item->kode_buku, 'cover' => $item->cover, 'filecover' => asset('/storage/buku_cover/' . $item->cover)];
+      })->toArray(),
+      
+      $skripsiTerbanyakDilihat->map(function ($item) {
+      return ['categori' => 'skripsi', 'kode' => $item->kode_skripsi, 'cover' => $item->fileSkripsi->ta_cover, 'filecover' => asset('/storage/skripsi_cover/' .
+      $item->fileSkripsi->ta_cover)];
+      })->toArray(),
+      
+      $kpTerbanyakDilihat->map(function ($item) {
+      return ['categori' => 'kp', 'kode' => $item->kode_kp, 'cover' => $item->fileKp->kp_cover, 'filecover' => asset('/storage/kp_cover/' . $item->fileKp->kp_cover)];
+      })->toArray()
+      );
+      shuffle($allData);
+      @endphp
+   
+      <div class="pb-3 d-flex justify-content-between align-items-center">
+         <h4 class="text-white">Rekomendasi Pustaka</h4>
+         <div class="d-flex align-items-center">
+            <a href="/pustaka_lainnya" class="text-decoration-none text-white">Lihat Lainnya</a>
+            <i class="ri-arrow-drop-right-line pt-1 text-white" style="font-size: 20px"></i>
+         </div>
+          
+      </div>
+      <div class="d-flex justify-content-between mb-3">
+   
+         <div id="myCarousel" class="carousel slide w-100" data-bs-ride="carousel">
+            <!-- Slides -->
+            <div class="carousel-inner">
+               @php
+               $chunks = array_chunk($allData, 6);
+               @endphp
+               @foreach($chunks as $key => $chunk)
+               <div class="carousel-item @if($key === 0) active @endif">
+                  <div class="d-flex justify-content-between">
+                     @foreach($chunk as $data)
+                     @if ($data['categori'] === 'buku')
+                        <a href="/buku/detail/{{ $data['kode'] }}">
+                     @elseif ($data['categori'] === 'skripsi')
+                        <a href="/skripsi/detail/{{ $data['kode'] }}">
+                     @elseif ($data['categori'] === 'kp')
+                        <a href="/kp/detail/{{ $data['kode'] }}">
+                     @endif
+                     <div class="card rounded-2 shadow-md px-4 py-2 d-flex justify-content-center align-items-center"
+                        style="width: 175px; height: 240px;">
+                                 
+                        @if ($data['cover'])
+                        <img src="{{ $data['filecover'] }}" alt="" width="150px" height="200px">
+                        @else
+                        <img src="{{ asset('img/cover2.png') }}" alt="" width="120px" height="120px">
+                        @endif
+                     </div>
+                     @endforeach
+                  </div>
+               </div>
+               </a>
+               @endforeach
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="pt-5 ">
+   <div class="container">
+      <h3 class="text-center fw-bolder" data-aos="fade-down">Sambutan Ketua Jurusan <br/>Teknik Informatika</h3>
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center py-5 mt-md-5 mb-md-5">
-         <div class="order-md-first col-md-8 col-12">
+         <div class="order-md-first col-md-8 col-12" data-aos="flip-up">
             <img class="d-none d-md-block" src="{{ asset('img/quetos.png') }}" alt="" width="100px">
             <p class="fw-normal">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus minus dolor dicta, tempore laudantium harum vitae et, nisi, unde ab fugit eveniet vero eius. Quae quidem aliquam eaque nisi quisquam, officia nobis expedita magnam numquam optio? Architecto sint aliquid, rerum repellendus quos nihil repudiandae exercitationem in ab laborum sunt aliquam natus quas obcaecati nesciunt tenetur tempore! Fugit aspernatur, tenetur impedit nostrum vel architecto magni voluptas temporibus cum assumenda est officiis, laborum optio vitae labore aperiam ducimus perferendis? Quas, explicabo dicta!</p>
             <h6 class="fw-bolder">Isnawaty, S.Si., MT.</h6>
             <h6 class="text-secondary">Ketua Jurusan Teknik Informatika</h6>
          </div>
-         <div class="order-first mb-5 mb-md-0"><img src="{{ asset('img/sambutan-kajur.png') }}" alt="" width="300px">
+         <div class="order-first mb-5 mb-md-0" data-aos="fade-up"
+     data-aos-anchor-placement="bottom-bottom"><img src="{{ asset('img/sambutan-kajur.png') }}" alt="" width="300px">
          </div>
       </div>
    </div>
-
 </div>
+
 <div id="faq" class="pt-5" style="height: 110vh; background-color: #003487">
    <div class="container">
       <h3 class="text-center text-white fw-bolder mb-5">FAQ</h3>

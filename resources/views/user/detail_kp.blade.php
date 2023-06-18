@@ -16,6 +16,16 @@
          </div>
          <div class="card p-md-5 p-3 col-12 col-md-8 mt-5">
             <h5 class="mb-3">{{ $kp->judul_kp }}</h5>
+            <div class="d-flex mb-3">
+               {{-- @auth
+               @if ($skripsi->fileKp->kp_abstrak) --}}
+               <a href="" download
+                  class="btn btn-sm text-white fw-bold" style="background-color: #FE8E45;">
+                  Unduh File
+               </a>
+               {{-- @endif
+               @endauth --}}
+            </div>
             <table class="table">
                <tr col-6>
                   <td>
@@ -97,10 +107,10 @@
                      </div>
                   </td>
                   <td>
-                     @if ($kp->fileKp->file_abstrak === null)
+                     @if ($kp->fileKp->kp_abstrak === null)
                      <p class="text-secondary">-</p>
                      @else
-                     <a href="/storage/kp_abstrak/{{ $kp->fileKp->file_abstrak }}">Lihat File Abstrak</a>
+                     <a href="/storage/kp_abstrak/{{ $kp->fileKp->kp_abstrak }}">Lihat File Abstrak</a>
                      @endif
                   </td>
                </tr>

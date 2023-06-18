@@ -1,8 +1,5 @@
 <div>
-    <div class="d-flex justify-content-center align-items-center"
-        style="width: 100%; height: 35vh; background-color: #003487; position: absolute; padding-bottom: 100px">
-        <img src="{{ asset('img/logo.png') }}" alt="" width="200px">
-    </div>
+
     <div class="d-flex justify-content-center align-items-center vh-100" style="padding-top: 100px">
         <div class="card col-md-4 col-11 shadow-5-strong" style="
                 background: hsla(0, 0%, 100%, 0.8);

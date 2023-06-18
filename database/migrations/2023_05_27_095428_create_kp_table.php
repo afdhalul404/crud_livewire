@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('nim5', 10)->nullable();
             $table->string('mahasiswa5')->nullable();
             $table->bigInteger('pembimbing_jurusan');
-            $table->string('pembimbing_lapangan');
+            $table->string('pembimbing_lapangan')->nullable();
 
             $table->foreign('pembimbing_jurusan')->references('nip')->on('dosen');
         });

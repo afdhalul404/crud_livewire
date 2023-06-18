@@ -2,7 +2,7 @@
     <div class="card bg-white rounded shadow-sm p-2 mt-3">
         <h5 class="text-center">Daftar Skripsi</h5>
         <div class="d-flex justify-content-between align-items-center col-12">
-            <div class="d-flex col-11 gap-1">
+            <div class="d-flex col-10 gap-1">
                 @if (session()->has('success'))
                 <script>
                     Swal.fire({
@@ -48,10 +48,11 @@
     
             </div>
     
-            <div class="col-1">
-                <a class="btn btn btn-primary btn-sm rounded-pill m-3 d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#addSkripsiModal" style="gap: 5px; padding: 6px 20px"><i
-                        class="ri-add-box-line"></i>Add</a>
-            </div>
+           <div class="col-2 d-flex justify-content-end">
+            <a href="" class="col-6 btn btn btn-primary btn-sm rounded-sm mt-3 mb-3 ml-3 d-flex justify-content-center py-2"
+                data-bs-toggle="modal" data-bs-target="#addSkripsiModal" style="gap: 5px;"><i
+                    class="ri-add-box-line"></i>Tambah</a>
+        </div>
         </div>
         <div class="table-responsive">
             <table class="text-center table pb-3" id="dataTable">
@@ -110,32 +111,32 @@
                 <div class="modal-body">
                     @csrf
                     <div class="mb-3">
-                        <label for="kode_skripsi">Kode Skripsi</label>
+                        <label for="kode_skripsi">Kode Skripsi<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='kode_skripsi' type="text" name="kode_skrips" class="form-control @error('kode_skripsi') is-invalid @enderror">
                         @error('kode_skripsi') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="nim">NIM</label>
+                        <label for="nim">NIM<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='nim' type="text" name="nim" class="form-control @error('nim') is-invalid @enderror">
                         @error('nim') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="nama_penulis">Nama Penulis</label>
+                        <label for="nama_penulis">Nama Penulis<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='nama_penulis' type="text" name="nama_penulis" class="form-control @error('nama_penulis') is-invalid @enderror">
                         @error('nama_penulis') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="judul_skripsi">Judul</label>
+                        <label for="judul_skripsi">Judul<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='judul_skripsi' type="text" name="judul_skripsi" class="form-control @error('judul_skripsi') is-invalid @enderror">
                         @error('judul_skripsi') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="tahun_lulus">Tahun Lulus</label>
+                        <label for="tahun_lulus">Tahun Lulus<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='tahun_lulus' type="text" name="tahun_lulus" class="form-control @error('tahun_lulus') is-invalid @enderror">
                         @error('tahun_lulus') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="pembimbing1">Dosen Pembimbing 1</label>
+                        <label for="pembimbing1">Dosen Pembimbing 1<span class="text-danger fw-bolder">*</span></label>
                         <select  wire:model='pembimbing1' name="pembimbing1" id="pembimbing1" class="form-control @error('pembimbing1') is-invalid @enderror">
                             <option value=""></option>
                             @foreach ($dosen as $item)
@@ -145,7 +146,7 @@
                         @error('pembimbing1') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="pembimbing2">Dosen Pembimbing 2</label>
+                        <label for="pembimbing2">Dosen Pembimbing 2<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='pembimbing2' name="pembimbing2" id="pembimbing2" class="form-control @error('pembimbing2') is-invalid @enderror">
                             <option value=""></option>
                             @foreach ($dosen as $item)
@@ -155,7 +156,7 @@
                         @error('pembimbing2') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="penguji1">Dosen Penguji 1</label>
+                        <label for="penguji1">Dosen Penguji 1<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='penguji1' name="penguji1" id="penguji1" class="form-control @error('penguji1') is-invalid @enderror">
                             <option value=""></option>
                             @foreach ($dosen as $item)
@@ -165,7 +166,7 @@
                         @error('penguji1') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="penguji2">Dosen Penguji 2</label>
+                        <label for="penguji2">Dosen Penguji 2<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='penguji2' name="penguji2" id="penguji2" class="form-control @error('penguji2') is-invalid @enderror">
                             <option value=""></option>
                             @foreach ($dosen as $item)
@@ -175,7 +176,7 @@
                         @error('penguji2') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="penguji3">Dosen Penguji 3</label>
+                        <label for="penguji3">Dosen Penguji 3<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='penguji3' name="penguji3" id="penguji3" class="form-control @error('penguji3') is-invalid @enderror">
                             <option value=""></option>
                             @foreach ($dosen as $item)
@@ -185,7 +186,7 @@
                         @error('penguji3') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="Peminatan">Peminatan</label>
+                        <label for="Peminatan">Peminatan<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='peminatan' name="peminatan" id="peminatan" class="form-control @error('peminatan') is-invalid @enderror">
                             <option value=""></option>
                             <option value="Rpl">Rekayasa Perangkat Lunak</option>
@@ -205,7 +206,7 @@
                         @error('ta_abstrak') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="lokasi">Lokasi Penyimpanan</label>
+                        <label for="lokasi">Lokasi Penyimpanan<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='lokasi' type="text" class="form-control @error('lokasi') is-invalid @enderror" name="lokasi">
                         @error('lokasi') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
@@ -228,7 +229,7 @@
         <form wire:submit.prevent="editSkripsi" enctype="multipart/form-data">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data</h1>
                     <button wire:click="resetForm" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close">
                     </button>
@@ -236,7 +237,7 @@
                 <div class="modal-body">
                     @csrf
                     <div class="mb-3">
-                        <label for="kode_skripsi">Kode Skripsi</label>
+                        <label for="kode_skripsi">Kode Skripsi<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='kode_skripsi' type="text" name="kode_skrips"
                             class="form-control @error('kode_skripsi') is-invalid @enderror">
                         @error('kode_skripsi') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
@@ -248,25 +249,25 @@
                         @error('nim') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="nama_penulis">Nama Penulis</label>
+                        <label for="nama_penulis">Nama Penulis<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='nama_penulis' type="text" name="nama_penulis"
                             class="form-control @error('nama_penulis') is-invalid @enderror">
                         @error('nama_penulis') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="judul_skripsi">Judul</label>
+                        <label for="judul_skripsi">Judul<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='judul_skripsi' type="text" name="judul_skripsi"
                             class="form-control @error('judul_skripsi') is-invalid @enderror">
                         @error('judul_skripsi') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="tahun_lulus">Tahun Lulus</label>
+                        <label for="tahun_lulus">Tahun Lulus<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='tahun_lulus' type="text" name="tahun_lulus"
                             class="form-control @error('tahun_lulus') is-invalid @enderror">
                         @error('tahun_lulus') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="pembimbing1">Dosen Pembimbing 1</label>
+                        <label for="pembimbing1">Dosen Pembimbing 1<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='pembimbing1' name="pembimbing1" id="pembimbing1"
                             class="form-control @error('pembimbing1') is-invalid @enderror">
                             <option value=""></option>
@@ -277,7 +278,7 @@
                         @error('pembimbing1') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="pembimbing2">Dosen Pembimbing 2</label>
+                        <label for="pembimbing2">Dosen Pembimbing 2<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='pembimbing2' name="pembimbing2" id="pembimbing2"
                             class="form-control @error('pembimbing2') is-invalid @enderror">
                             <option value=""></option>
@@ -288,7 +289,7 @@
                         @error('pembimbing2') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="penguji1">Dosen Penguji 1</label>
+                        <label for="penguji1">Dosen Penguji 1<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='penguji1' name="penguji1" id="penguji1"
                             class="form-control @error('penguji1') is-invalid @enderror">
                             <option value=""></option>
@@ -299,7 +300,7 @@
                         @error('penguji1') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="penguji2">Dosen Penguji 2</label>
+                        <label for="penguji2">Dosen Penguji 2<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='penguji2' name="penguji2" id="penguji2"
                             class="form-control @error('penguji2') is-invalid @enderror">
                             <option value=""></option>
@@ -310,7 +311,7 @@
                         @error('penguji2') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="penguji3">Dosen Penguji 3</label>
+                        <label for="penguji3">Dosen Penguji 3<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='penguji3' name="penguji3" id="penguji3"
                             class="form-control @error('penguji3') is-invalid @enderror">
                             <option value=""></option>
@@ -321,7 +322,7 @@
                         @error('penguji3') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="Peminatan">Peminatan</label>
+                        <label for="Peminatan">Peminatan<span class="text-danger fw-bolder">*</span></label>
                         <select wire:model='peminatan' name="peminatan" id="peminatan"
                             class="form-control @error('peminatan') is-invalid @enderror">
                             <option value=""></option>
@@ -344,7 +345,7 @@
                         @error('ta_abstrak') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="lokasi">Lokasi Penyimpanan</label>
+                        <label for="lokasi">Lokasi Penyimpanan<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='lokasi' type="text"
                             class="form-control @error('lokasi') is-invalid @enderror" name="lokasi">
                         @error('lokasi') <span class="text-danger fst-italic">{{ $message }}</span> @enderror

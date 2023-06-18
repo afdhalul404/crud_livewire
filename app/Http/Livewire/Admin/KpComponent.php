@@ -30,7 +30,6 @@ class KpComponent extends Component
         'mahasiswa1' => 'required',
 
         'pembimbing_jurusan' => 'required',
-        'pembimbing_lapangan' => 'required',
         'kp_cover' => 'nullable|file|mimes:png,jpg,jpeg,jfif|max:10240', // 10MB
         'kp_abstrak' => 'nullable|file|mimes:pdf|max:10240', // 10MB
     ];
@@ -45,7 +44,6 @@ class KpComponent extends Component
         'nim1.required' => 'Nim mahasiswa harus diisi.',
         'mahasiswa1.required' => 'Nama mahasiswa harus diisi.',
         'pembimbing_jurusan.required' => 'Pembimbing jurusan harus diisi.',
-        'pembimbing_lapangan.required' => 'Pembimbing lapangan harus diisi.',
         
         
     ];
@@ -85,7 +83,7 @@ class KpComponent extends Component
         }
 
         if ($this->kp_abstrak) {
-            $extension = $this->kp_cover->getClientOriginalExtension();
+            $extension = $this->kp_abstrak->getClientOriginalExtension();
             $fileName = $this->kode_kp . '_' . time() . '.' . $extension;
             $this->kp_abstrak->storeAs('public/kp_abstrak', $fileName);
             $file_kp->kp_abstrak = $fileName;

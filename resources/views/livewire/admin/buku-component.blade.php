@@ -3,7 +3,7 @@
     <h5 class="text-center">Daftar Buku</h5>
 
     <div class="d-flex justify-content-between align-items-center col-12">
-        <div class="d-flex col-11 gap-1">
+        <div class="d-flex col-10 gap-1">
             @if (session()->has('success'))
             <script>
                 Swal.fire({
@@ -46,13 +46,12 @@
                     </div>
                 </form>
             </div>
-
         </div>
 
-        <div class="col-1">
-            <a href="" class="btn btn btn-primary btn-sm rounded-pill m-3 d-flex justify-content-center"
-                data-bs-toggle="modal" data-bs-target="#addBukuModal" style="gap: 5px; padding: 6px 20px"><i
-                    class="ri-add-box-line"></i>Add</a>
+       <div class="col-2 d-flex justify-content-end">
+        <a href="" class="col-6 btn btn btn-primary btn-sm rounded-sm mt-3 mb-3 ml-3 d-flex justify-content-center py-2"
+            data-bs-toggle="modal" data-bs-target="#addBukuModal" style="gap: 5px;"><i
+                class="ri-add-box-line"></i>Tambah</a>
         </div>
     </div>
     <div class="table-responsive">
@@ -113,32 +112,32 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="kode_buku">Kode Buku</label>
+                            <label for="kode_buku">Kode Buku<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='kode_buku' type="text" name="kode_buku" class="form-control @error('kode_buku') is-invalid @enderror">
                             @error('kode_buku') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="judul">Judul Buku</label>
+                            <label for="judul">Judul Buku<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='judul_buku' type="text" name="judul" class="form-control @error('judul_buku') is-invalid @enderror">
                             @error('judul_buku') <span class="text-danger fst-italic">{{ $message }}</span> @enderror  
                         </div>
                         <div class="mb-3">
-                            <label for="penulis">Penulis</label>
+                            <label for="penulis">Penulis<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='penulis' type="text" name="penulis" class="form-control @error('penulis') is-invalid @enderror">
                             @error('penulis') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="penerbit">penerbit</label>
+                            <label for="penerbit">penerbit<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='penerbit' type="text" name="penerbit" class="form-control @error('penerbit') is-invalid @enderror">
                             @error('penerbit') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tahun">Tahun Terbit</label>
+                            <label for="tahun">Tahun Terbit<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='tahun_terbit' type="text" name="tahun" class="form-control @error('tahun_terbit') is-invalid @enderror">
                             @error('tahun_terbit') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="stok">Stok</label>
+                            <label for="stok">Stok<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='stok' type="text" name="stok" class="form-control @error('stok') is-invalid @enderror">
                             @error('stok') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
@@ -148,7 +147,7 @@
                             @error('cover') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="kategori">Kategori</label>
+                            <label for="kategori">Kategori<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='kategori' type="text" name="kategori" class="form-control @error('kategori') is-invalid @enderror">
                             @error('kategori') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
@@ -171,38 +170,38 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data</h1>
                         <button wire:click="resetForm" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="kode">Kode Buku</label>
+                            <label for="kode">Kode Buku<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='kode_buku' type="text" name="kode_buku" class="form-control @error('kode_buku') is-invalid @enderror">
                             @error('kode_buku') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="judul">Judul Buku</label>
+                            <label for="judul">Judul Buku<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='judul_buku' type="text" name="judul" class="form-control @error('judul_buku') is-invalid @enderror">
                             @error('judul_buku') <span class="text-danger fst-italic">{{ $message }}</span> @enderror  
                         </div>
                         <div class="mb-3">
-                            <label for="penulis">Penulis</label>
+                            <label for="penulis">Penulis<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='penulis' type="text" name="penulis" class="form-control @error('penulis') is-invalid @enderror">
                             @error('penulis') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="penerbit">penerbit</label>
+                            <label for="penerbit">penerbit<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='penerbit' type="text" name="penerbit" class="form-control @error('penerbit') is-invalid @enderror">
                             @error('penerbit') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tahun">Tahun Terbit</label>
+                            <label for="tahun">Tahun Terbit<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='tahun_terbit' type="text" name="tahun" class="form-control @error('tahun_terbit') is-invalid @enderror">
                             @error('tahun_terbit') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="stok">Stok</label>
+                            <label for="stok">Stok<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='stok' type="text" name="stok" class="form-control @error('stok') is-invalid @enderror">
                             @error('stok') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
@@ -213,7 +212,7 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label for="kategori">Kategori</label>
+                            <label for="kategori">Kategori<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='kategori' type="text" name="kategori" class="form-control @error('kategori') is-invalid @enderror">
                             @error('kategori') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>

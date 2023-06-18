@@ -13,6 +13,9 @@ class DosenComponent extends Component
 
     public $nip, $nama_dosen, $dosenId;
     public $search = '';
+    public $kategori;
+    public $urutan = '';
+
 
     // live validation
     protected $rules = [
@@ -98,6 +101,11 @@ class DosenComponent extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function setUrutan($urutan)
+    {
+        $this->urutan = $urutan;
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -111,7 +119,23 @@ class DosenComponent extends Component
 
     public function render()
     {
-        $dosen = Dosen::where('nama_dosen', 'LIKE', '%' . $this->search . '%')->paginate(15);
+        $dosenQuery = Dosen::query();
+
+        if ($this->kategori == 'nama') {
+            $dosenQuery->where('nama_dosen', 'LIKE', '%' . $this->search . '%');
+        } elseif ($this->kategori == 'nip') {
+            $dosenQuery->where('nip', 'LIKE', '%' . $this->search . '%');
+        }
+
+        if ($this->urutan == 'asc') {
+            $dosenQuery->orderBy('nip', 'asc');
+        } elseif ($this->urutan == 'desc') {
+            $dosenQuery->orderBy('nip', 'desc');
+        }
+
+        $dosen = $dosenQuery->paginate(15);
+
         return view('livewire.admin.dosen-component', ['dosen' => $dosen])->layout('livewire.admin.layouts.index');
     }
+
 }

@@ -32,7 +32,7 @@ class LoginComponent extends Component
         $this->validate();
 
         if (!Auth::guard('web')->attempt($this->only(['email', 'password']), $this->remember)) {
-            $this->addError('email', __('auth.failed'));
+            $this->addError('email', __(('Pastikan email & password sesuai')));
             return null;
         }
         return redirect()->route('home'); // Menggunakan metode route() untuk mendapatkan URL rute login

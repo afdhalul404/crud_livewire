@@ -30,7 +30,7 @@ class AdminLoginComponent extends Component
         $this->validate();
 
         if (!Auth::guard('admin')->attempt($this->only(['email', 'password']), $this->remember)) {
-            $this->addError('email', __('auth.failed'));
+            $this->addError('email', __(('Pastikan email & password sesuai')));
             return null;
         }
         return redirect()->route('admin.dashboard'); 

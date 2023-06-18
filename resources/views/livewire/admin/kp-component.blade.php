@@ -3,7 +3,7 @@
         <h5 class="text-center">Daftar Laporan KP</h5>
     
         <div class="d-flex justify-content-between align-items-center col-12">
-            <div class="d-flex col-11 gap-1">
+            <div class="d-flex col-10 gap-1">
                 @if (session()->has('success'))
                 <script>
                     Swal.fire({
@@ -49,10 +49,10 @@
     
             </div>
     
-            <div class="col-1">
-                <a href="" class="btn btn btn-primary btn-sm rounded-pill m-3 d-flex justify-content-center"
-                    data-bs-toggle="modal" data-bs-target="#addKpModal" style="gap: 5px; padding: 6px 20px"><i
-                        class="ri-add-box-line"></i>Add</a>
+            <div class="col-2 d-flex justify-content-end">
+                <a href="" class="col-6 btn btn btn-primary btn-sm rounded-sm mt-3 mb-3 ml-3 d-flex justify-content-center py-2"
+                    data-bs-toggle="modal" data-bs-target="#addKpModal" style="gap: 5px;"><i
+                        class="ri-add-box-line"></i>Tambah</a>
             </div>
         </div>
         <div class="table-responsive">
@@ -64,7 +64,8 @@
                         <th class="col-3">Judul</th>
                         <th class="col-2">Lokasi Kp</th>
                         <th class="col-2">Tim Kp</th>
-                        <th class="col-1">Action</th>
+                        <th class="col-1">Tahun</th>
+                        <th class="col-2">Action</th>
     
                     </tr>
                 </thead>
@@ -81,56 +82,42 @@
                                 @if ($item->mahasiswa1 != null)
                                 <tr class=" ">
                                     <td class="">
-                                        <p>{{ $item->nim1 }}</p>
-                                    </td>
-                                    <td class="">
-                                        <p>{{ $item->mahasiswa1 }}</p>
+                                        <p>{{ $item->nim1 }} | {{ $item->mahasiswa1 }}</p>
                                     </td>
                                 </tr>
                                 @endif
                                 @if ($item->mahasiswa2 != null)
                                 <tr>
-                                    <td>
-                                        <p>{{ $item->nim2 }}</p>
-                                    </td>
-                                    <td>
-                                        <p>{{ $item->mahasiswa2 }}</p>
+                                    <td class="">
+                                        <p>{{ $item->nim2 }} | {{ $item->mahasiswa2 }}</p>
                                     </td>
                                 </tr>
                                 @endif
                                 @if ($item->mahasiswa3 != null)
-                                <tr>
-                                    <td>
-                                        <p>{{ $item->nim3 }}</p>
-                                    </td>
-                                    <td>
-                                        <p>{{ $item->mahasiswa3 }}</p>
+                               <tr>
+                                    <td class="">
+                                        <p>{{ $item->nim3 }} | {{ $item->mahasiswa3 }}</p>
                                     </td>
                                 </tr>
                                 @endif
                                 @if ($item->mahasiswa4 != null)
                                 <tr>
-                                    <td>
-                                        <p>{{ $item->nim4 }}</p>
-                                    </td>
-                                    <td>
-                                        <p>{{ $item->mahasiswa4 }}</p>
+                                    <td class="">
+                                        <p>{{ $item->nim4 }} | {{ $item->mahasiswa4 }}</p>
                                     </td>
                                 </tr>
                                 @endif
                                 @if ($item->mahasiswa5 != null)
-                                <tr>
-                                    <td>
-                                        <p>{{ $item->nim5 }}</p>
-                                    </td>
-                                    <td>
-                                        <p>{{ $item->mahasiswa5 }}</p>
+                               <tr>
+                                    <td class="">
+                                        <p>{{ $item->nim5 }} | {{ $item->mahasiswa5 }}</p>
                                     </td>
                                 </tr>
                                 @endif
                             </table>
     
                         </td>
+                        <td>{{ $item->tahun }}</td>
                         <td>
                             <a href="/admin/kp/detail/{{ $item->kode_kp }}" style="text-decoration: none"
                                 class="badge rounded-pill bg-primary p-2 "><i class="ri-draft-line"></i></a>
@@ -167,25 +154,25 @@
                     <div class="modal-body">
                         @csrf
                         <div class="mb-3">
-                            <label for="kode_kp">Kode Kp</label>
+                            <label for="kode_kp">Kode Kp<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='kode_kp' type="text" name="kode_kp"
                                 class="form-control @error('kode_kp') is-invalid @enderror">
                             @error('kode_kp') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="judul_kp">Judul</label>
+                            <label for="judul_kp">Judul<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='judul_kp' type="text" name="judul_kp"
                                 class="form-control @error('judul_kp') is-invalid @enderror">
                             @error('judul_kp') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tempat_kp">Tempat Kp</label>
+                            <label for="tempat_kp">Tempat Kp<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='tempat_kp' type="text" name="tempat_kp"
                                 class="form-control @error('tempat_kp') is-invalid @enderror">
                             @error('tempat_kp') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tahun">Tahun</label>
+                            <label for="tahun">Tahun<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='tahun' type="text" name="tahun"
                                 class="form-control @error('tahun') is-invalid @enderror">
                             @error('tahun') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
@@ -194,12 +181,12 @@
                         <div class="card mb-3" style="padding: 20px 30px 10px 20px">
                             <div class="d-flex justify-content-between" style="gap: 10px">
                                 <div class="mb-3 col-4">
-                                    <label for="nim1">Nim 1</label>
+                                    <label for="nim1">Nim 1<span class="text-danger fw-bolder">*</span></label>
                                     <input wire:model='nim1' type="text" name="nim1" class="form-control @error('nim1') is-invalid @enderror">
                                     @error('nim1') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="mb-3 col-8">
-                                    <label for="mahasiswa1">Mahasiswa 1</label>
+                                    <label for="mahasiswa1">Mahasiswa 1<span class="text-danger fw-bolder">*</span></label>
                                     <input wire:model='mahasiswa1' type="text" name="mahasiswa1" class="form-control @error('mahasiswa1') is-invalid @enderror">
                                     @error('mahasiswa1') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                                 </div>
@@ -254,7 +241,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="pembimbing_jurusan">Pembimbing Jurusan</label>
+                            <label for="pembimbing_jurusan">Pembimbing Jurusan<span class="text-danger fw-bolder">*</span></label>
                             <select wire:model='pembimbing_jurusan' name="pembimbing_jurusan" id="pembimbing_jurusan"
                                 class="form-control @error('pembimbing_jurusan') is-invalid @enderror">
                                 <option value=""></option>
@@ -266,7 +253,7 @@
                             @error('pembimbing_jurusan') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="pembimbing_lapangan">Pembimbing Lapangan</label>
+                            <label for="pembimbing_lapangan">Pembimbing Lapangan<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='pembimbing_lapangan' type="text" name="pembimbing_lapangan" class="form-control @error('pembimbing_lapangan') is-invalid @enderror">
                             @error('pembimbing_lapangan') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
@@ -300,7 +287,7 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data</h1>
                         <button wire:click="resetForm" type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close">
                         </button>
@@ -308,24 +295,24 @@
                     <div class="modal-body">
                         @csrf
                         <div class="mb-3">
-                            <label for="kode_kp">Kode Kp</label>
+                            <label for="kode_kp">Kode Kp<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='kode_kp' type="text" name="kode_kp" class="form-control @error('kode_kp') is-invalid @enderror">
                             @error('kode_kp') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="judul_kp">Judul</label>
+                            <label for="judul_kp">Judul<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='judul_kp' type="text" name="judul_kp"
                                 class="form-control @error('judul_kp') is-invalid @enderror">
                             @error('judul_kp') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tempat_kp">Tempat Kp</label>
+                            <label for="tempat_kp">Tempat Kp<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='tempat_kp' type="text" name="tempat_kp"
                                 class="form-control @error('tempat_kp') is-invalid @enderror">
                             @error('tempat_kp') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tahun">Tahun</label>
+                            <label for="tahun">Tahun<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='tahun' type="text" name="tahun" class="form-control @error('tahun') is-invalid @enderror">
                             @error('tahun') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
@@ -333,12 +320,12 @@
                         <div class="card mb-3" style="padding: 20px 30px 10px 20px">
                             <div class="d-flex justify-content-between" style="gap: 10px">
                                 <div class="mb-3 col-4">
-                                    <label for="nim1">Nim 1</label>
+                                    <label for="nim1">Nim 1<span class="text-danger fw-bolder">*</span></label>
                                     <input wire:model='nim1' type="text" name="nim1" class="form-control @error('nim1') is-invalid @enderror">
                                     @error('nim1') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="mb-3 col-8">
-                                    <label for="mahasiswa1">Mahasiswa 1</label>
+                                    <label for="mahasiswa1">Mahasiswa 1<span class="text-danger fw-bolder">*</span></label>
                                     <input wire:model='mahasiswa1' type="text" name="mahasiswa1"
                                         class="form-control @error('mahasiswa1') is-invalid @enderror">
                                     @error('mahasiswa1') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
@@ -398,7 +385,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="pembimbing_jurusan">Pembimbing Jurusan</label>
+                            <label for="pembimbing_jurusan">Pembimbing Jurusan<span class="text-danger fw-bolder">*</span></label>
                             <select wire:model='pembimbing_jurusan' name="pembimbing_jurusan" id="pembimbing_jurusan"
                                 class="form-control @error('pembimbing_jurusan') is-invalid @enderror">
                                 <option value=""></option>
@@ -410,7 +397,7 @@
                             @error('pembimbing_jurusan') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="pembimbing_lapangan">Pembimbing Lapangan</label>
+                            <label for="pembimbing_lapangan">Pembimbing Lapangan<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='pembimbing_lapangan' type="text" name="pembimbing_lapangan"
                                 class="form-control @error('pembimbing_lapangan') is-invalid @enderror">
                             @error('pembimbing_lapangan') <span class="text-danger fst-italic">{{ $message }}</span> @enderror

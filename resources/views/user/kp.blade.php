@@ -90,7 +90,10 @@
          </div>
          <div class="col-md-8">
             <div class="d-flex flex-column" style="padding-top: 20px">
-               <h5>{{ $item->judul_kp }}</h5>
+               <div class="">
+                  <h5>{{ $item->judul_kp }}</h5>
+                  <p class="badge rounded-pill" style="background-color: #03DC74; font-size: 12px">Laporan KP</p>
+               </div>
                <div class="d-flex flex-column mt-2">
                   <div class="d-flex gap-2">
                      <i class="ri-team-line text-secondary"></i>
@@ -124,7 +127,6 @@
                      <i class="ri-calendar-line text-secondary"></i>
                      <p class="text-secondary">{{ $item->tahun }}</p>
                   </div>
-
                </div>
             </div>
          </div>

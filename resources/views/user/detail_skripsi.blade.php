@@ -16,7 +16,16 @@
          </div>
 
          <div class="card p-md-5 p-3 col-12 col-md-8 mt-5">
-            <h5 class="mb-3">{{ $skripsi->judul_ta }}</h5>
+            <h5 class="mb-3">{{ $skripsi->judul_skripsi }}</h5>
+            <div class="d-flex mb-3">
+               @auth
+               @if ($skripsi->fileSkripsi->ta_abstrak)
+               <a href="/storage/skripsi_abstrak/{{ $skripsi->fileSkripsi->ta_abstrak }}" download class="btn btn-sm text-white fw-bold" style="background-color: #FE8E45;">
+                  Unduh File
+               </a>
+               @endif
+               @endauth
+            </div>
             <table class="table">
                <tr col-6>
                   <td>
@@ -135,6 +144,7 @@
                      <a href="{{ route('login') }}">Lihat File Abstrak</a>
                   @endauth
                </td>
+              
                </tr>
             </table>
          </div>

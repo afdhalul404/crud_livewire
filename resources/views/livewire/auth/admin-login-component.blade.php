@@ -1,6 +1,4 @@
 <div>
-    <div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 35vh; background-color: #003487; position: absolute; padding-bottom: 100px">
-        <img src="{{ asset('img/logo.png') }}" alt="" width="200px"></div>
     <div class="d-flex justify-content-center align-items-center vh-100" style="padding-top: 60px">
         <div class="card col-md-4 col-11 shadow-5-strong" style="
                 background: hsla(0, 0%, 100%, 0.8);
@@ -54,3 +52,19 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function() {
+                var passwordInput = document.getElementById('password');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    this.classList.remove('ri-eye-line');
+                    this.classList.add('ri-eye-off-line');
+                } else {
+                    passwordInput.type = 'password';
+                    this.classList.remove('ri-eye-off-line');
+                    this.classList.add('ri-eye-line');
+                }
+            });
+</script>
+@endpush

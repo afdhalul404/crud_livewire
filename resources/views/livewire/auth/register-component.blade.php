@@ -2,15 +2,6 @@
     <div class="d-flex align-items-center px-md-5">
         <form wire:submit.prevent='register' class="col-12">
             <div class="form-outline mt-3">
-                <label class="form-label" for="role">Masuk Sebagai<span class="text-danger fw-bolder">*</span></label>
-                <select wire:model='role' name="role" id="role" class="form-control @error('role') is-invalid @enderror">
-                    <option value="" class="">Pilih</option>
-                    <option value="dosen">Dosen</option>
-                    <option value="mahasiswa">Mahasiswa</option>
-                </select>
-                @error('role') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-outline mt-3">
                 <label class="form-label" for="name">Nama Lengkap<span class="text-danger fw-bolder">*</span></label>
                 <input wire:model='name' type="text" id="form2Example18" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap" />
                 @error('name') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
@@ -21,8 +12,8 @@
                 @error('email') <span class="text-danger note fst-italic">{{ $message }}</span> @enderror
             </div>
             <div class="form-outline mt-3">
-                <label class="form-label" for="identity">NIM/NIP<span class="text-danger fw-bolder">*</span></label>
-                <input wire:model='identity' name="identity" type="text" id="identity" class="form-control @error('identity') is-invalid @enderror" placeholder="NIM/NIP" />
+                <label class="form-label" for="identity">NIM<span class="text-danger fw-bolder">*</span></label>
+                <input wire:model='identity' name="identity" type="text" id="identity" class="form-control @error('identity') is-invalid @enderror" placeholder="NIM" />
                 @error('identity') <span class="text-danger note fst-italic">{{ $message }}</span> @enderror
             </div>
             <div class="form-outline mt-3">
@@ -31,7 +22,7 @@
                 @error('tahun_masuk') <span class="text-danger note fst-italic">{{ $message }}</span> @enderror
             </div>
             <div class="form-outline mt-3">
-                <label class="form-label" for="password">Password</label>
+                <label class="form-label" for="password">Password<span class="text-danger fw-bolder">*</span></label>
                 <div class="input-group">
                     <input wire:model.defer='password' type="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="********" />
                     <span class="input-icon ri-eye-line btn border" id="togglePassword"></span>
@@ -39,7 +30,7 @@
                 @error('password') <span class="text-danger note fst-italic">{{ $message }}</span> @enderror
             </div>
             <div class="form-outline mb-4 mt-3">
-                <label class="form-label" for="confirm_password">Konfirmasi Password</label>
+                <label class="form-label" for="confirm_password">Konfirmasi Password<span class="text-danger fw-bolder">*</span></label>
                 <div class="input-group">
                     <input wire:model='confirm_password' type="password" id="confirm_password" class="form-control"
                         placeholder="********" />

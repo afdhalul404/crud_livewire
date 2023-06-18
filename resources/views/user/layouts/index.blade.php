@@ -1,15 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth">
 
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
    <title>E-Library | Teknik Informatika</title>
 
    {{-- css --}}
    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
    <link rel="icon" href="{{ asset('img/logo-uho.png') }}" type="image/png">
 
@@ -17,136 +19,83 @@
 
 <body>
    {{-- start: Navbar --}}
-   <nav class="navbar navbar-expand-lg navbar-dark static-top fixed-top" style="background-color: #003487;">
-      <div class="container">
-         <a class="navbar-brand" href="#">
-            <img src="{{ asset('img/logo.png') }}" alt="Teknik Informatika UHO" width="130px">
-         </a>
-         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-         </button>
-         <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto">
-               <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/">Home</a>
-               </li>
-               <li class="nav-item">
-                  <div class="dropdown">
-                     <a class="nav-link d-flex align-items-center" aria-current="page" href="#">
-                        <span>Koleksi Pustaka</span>
-                        <i class="ri-arrow-down-s-line ms-2" style="font-size: 1rem;"></i>
-                     </a>
-                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/buku">Buku</a>
-                        <a class="dropdown-item" href="/kp">Laporan KP</a>
-                        <a class="dropdown-item" href="/skripsi">Skripsi</a>
-                     </div>
+  <nav data-aos="fade-down" class="navbar navbar-expand-lg navbar-dark static-top fixed-top"
+   style="background-color: #003487;">
+   <div class="container">
+      <a class="navbar-brand" href="#">
+         <img src="{{ asset('img/logo.png') }}" alt="Teknik Informatika UHO" width="130px">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarSupportedContent">
+         <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+               <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">Beranda</a>
+            </li> 
+            <li class="nav-item">
+               <div class="dropdown">
+                  <a class="nav-link d-flex align-items-center{{ Request::is('buku', 'kp', 'skripsi') ? ' active' : '' }}"
+                     aria-current="page" href="#">
+                     <span>Koleksi Pustaka</span>
+                     <i class="ri-arrow-down-s-line ms-2" style="font-size: 1rem;"></i>
+                  </a>
+                  <div class="dropdown-menu">
+                     <a class="dropdown-item{{ Request::is('/buku*') && !Request::is('/buku/search*') ? ' active' : '' }}"
+                        href="/buku">Buku</a>
+                     <a class="dropdown-item{{ Request::is('/kp') ? ' active' : '' }}" href="/kp">Laporan KP</a>
+                     <a class="dropdown-item{{ Request::is('/skripsi') || (Request::is('/buku/search*') && request()->has('search')) ? ' active' : '' }}"
+                        href="/skripsi">Skripsi</a>
                   </div>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#tentangKami">Tentang Kami</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#faq">FAQ</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#kontak">Kontak</a>
-               </li>
-            </ul>
-         </div>
-         <div class="collapse navbar-collapse user" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-4 gap-md-2 pb-3 pb-md-0">
-               @auth
-               <li class="nav-item">
-                  <span class="nav-link" style="font-size: 13px">Halo, {{ Auth::user()->name }}</span>
-               </li>
-               <li class="nav-item dropdown">
-                  {{-- <div class="d-flex align-items-center cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false">
-                     <img class="navbar-profile-image"
-                        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="Image">
-                  </div> --}}
-                  <ul class="dropdown-menu fx-dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}">Keluar</a>
-                     </li>
-                  </ul>
-               </li>
-               @else
-               <li class="nav-item">
-                  <a class="nav-link" href="/register">Daftar</a>
-               </li>
-               <li class="strip mx-2"></li>
-               <li class="nav-item">
-                  <a class="nav-link" href="/login">Masuk</a>
-               </li>
-               @endauth
-            </ul>
-         </div>
-         {{-- <style>
-            .dropdown-toggle::after {
-               display: none;
-            }
-         
-            .cursor-pointer {
-               cursor: pointer;
-            }
-         
-            .fw-semibold {
-               font-weight: 600;
-            }
-         
-            .fs-7 {
-               font-size: .875rem;
-            }
-         
-           .fx-dropdown-menu {
-               width: 150px; /* Atur lebar dropdown menu sesuai kebutuhan */
-               min-width: ; /* Atur lebar minimum dropdown menu */
-               padding: 0;
-               overflow: hidden;
-            }
-         
-            nav {
-               display: flex;
-               align-items: center;
-            }
-         
-            .navbar-profile-image {
-               width: 35px;
-               height: 35px;
-               object-fit: cover;
-               border-radius: 50%;
-            }
-         
-            .navbar-link {
-               width: 2.5rem;
-               height: 2.5rem;
-               display: flex;
-               align-items: center;
-               justify-content: center;
-               border-radius: .25rem;
-            }
-         
-            .navbar-link:hover {
-               background-color: var(--bs-gray-200);
-            }
-         
-            .dropdown:hover .dropdown-menu {
-               display: block;
-            }
-         
-            .dropdown-menu {
-               position: absolute;
-               /* top: 100%; */
-               left: -135px;
-               display: none;
-            }
-         </style> --}}
+               </div>
+            </li>
+            {{-- <li class="nav-item">
+               <a class="nav-link{{ Request::is('tentangKami') ? ' active' : '' }}" aria-current="page"
+                  href="#tentangKami">Tentang Kami</a>
+            </li> --}}
+            <li class="nav-item">
+               <a class="nav-link{{ Request::is('faq') ? ' active' : '' }}" aria-current="page" href="#faq">FAQ</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link{{ Request::is('kontak') ? ' active' : '' }}" aria-current="page"
+                  href="#kontak">Kontak</a>
+            </li>
+         </ul>
       </div>
-   </nav>
+      <div class="collapse navbar-collapse user" id="navbarSupportedContent">
+         <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-4 gap-md-1 pb-3 pb-md-0">
+            @auth
+            <li class="nav-item">
+               <span class="nav-link" style="font-size: 13px">{{ Auth::user()->name }}</span>
+            </li>
+            <li class="strip"></li>
+            <li class="nav-item">
+               <a class="nav-link" href="{{ route('logout') }}">Keluar</a>
+            </li>
+            {{-- <li class="nav-item dropdown">
+               <div class="d-flex align-items-center cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img class="navbar-profile-image"
+                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                     alt="Image">
+               </div>
+               <ul class="dropdown-menu fx-dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+               </ul>
+            </li> --}}
+            @else
+            <li class="nav-item">
+               <a class="nav-link" href="/login">Masuk</a>
+            </li>
+            <li class="strip mx-2"></li>
+            <li class="nav-item">
+               <a class="nav-link" href="/register">Daftar</a>
+            </li>
+            @endauth
+         </ul>
+      </div>
+   </div>
+</nav>
    {{-- end: Navbar --}}
    
    <main>
@@ -207,6 +156,36 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+   <script>
+      AOS.init();
+   </script>
+  <script>
+   // Ambil elemen yang diperlukan
+  const navLink = document.querySelector(".nav-link span");
+
+  // Cek URL halaman saat dimuat
+  if (window.location.pathname === "/buku") {
+    navLink.innerText = "Buku";
+  } else if (window.location.pathname === "/kp") {
+    navLink.innerText = "Laporan KP";
+  } else if (window.location.pathname === "/skripsi") {
+    navLink.innerText = "Skripsi";
+  }
+
+  // Atur ulang teks saat URL berubah
+  window.addEventListener("popstate", function () {
+    if (window.location.pathname === "/buku") {
+      navLink.innerText = "Buku";
+    } else if (window.location.pathname === "/kp") {
+      navLink.innerText = "Laporan KP";
+    } else if (window.location.pathname === "/skripsi") {
+      navLink.innerText = "Skripsi";
+    } else {
+      navLink.innerText = "Koleksi Pustaka";
+    }
+  });
+</script>
    @stack('scripts')
 </body>
 

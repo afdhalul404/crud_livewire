@@ -1,5 +1,5 @@
 <div>
-    <<div class="card bg-white rounded shadow-sm p-5 mt-3">
+    <div class="card bg-white rounded shadow-sm p-5 mt-3">
         <h2>{{ $buku->judul_buku }}</h2>
         <div class="d-flex mt-3">
             <div class="">
@@ -27,7 +27,7 @@
                         <td>{{ $buku->penerbit}}</td>
                     </tr>
                     <tr>
-                        <td>Penerbit</td>
+                        <td>Tahun Penerbit</td>
                         <td>:</td>
                         <td>{{ $buku->tahun_terbit }}</td>
                     </tr>

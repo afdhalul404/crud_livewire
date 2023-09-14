@@ -28,7 +28,7 @@ class PublicController extends Controller
 
     public function indexBuku(Request $request)
     {
-        $buku = Buku::paginate(10);
+        $buku = Buku::paginate(5);
         $search = $request->input('search');
 
         return view('user.buku', ['buku' => $buku, 'search' => $search]);
@@ -46,7 +46,7 @@ class PublicController extends Controller
 
     public function indexSkripsi(Request $request)
     {
-        $skripsi = Skripsi::paginate(10);
+        $skripsi = Skripsi::paginate(5);
         $search = $request->input('search');
 
 
@@ -62,7 +62,7 @@ class PublicController extends Controller
 
     public function indexKp(Request $request)
     {
-        $kp = Kp::paginate(10);
+        $kp = Kp::paginate(5);
         $search = $request->input('search');
 
 
@@ -127,25 +127,25 @@ class PublicController extends Controller
 
         if ($category === 'buku') {
             if ($filter === 'tahun') {
-                $results = Buku::where('tahun_terbit', 'LIKE', '%' . $search . '%')->paginate(10);
+                $results = Buku::where('tahun_terbit', 'LIKE', '%' . $search . '%')->paginate(5);
                 return view('user.buku', ['buku' => $results, 'search' => $search]);
             } 
             if ($filter === 'judul') {
-                $results = Buku::where('judul_buku', 'LIKE', '%' . $search . '%')->paginate(10);
+                $results = Buku::where('judul_buku', 'LIKE', '%' . $search . '%')->paginate(5);
                 return view('user.buku', ['buku' => $results, 'search' => $search]);
             }
             if ($filter === 'penulis') {
-                $results = Buku::where('penulis', 'LIKE', '%' . $search . '%')->paginate(10);
+                $results = Buku::where('penulis', 'LIKE', '%' . $search . '%')->paginate(5);
                 return view('user.buku', ['buku' => $results, 'search' => $search]);
             }
         }
         if ($category === 'kp') {
             if ($filter === 'tahun') {
-                $results = Kp::where('tahun', 'LIKE', '%' . $search . '%')->paginate(10);
+                $results = Kp::where('tahun', 'LIKE', '%' . $search . '%')->paginate(5);
                 return view('user.kp', ['kp' => $results, 'search' => $search]);
             }
             if ($filter === 'judul') {
-                $results = Kp::where('judul_kp', 'LIKE', '%' . $search . '%')->paginate(10);
+                $results = Kp::where('judul_kp', 'LIKE', '%' . $search . '%')->paginate(5);
                 return view('user.kp', ['kp' => $results, 'search' => $search]);
             }
             if ($filter === 'penulis') {
@@ -161,15 +161,15 @@ class PublicController extends Controller
         }
         if ($category === 'skripsi') {
             if ($filter === 'tahun') {
-                $results = Skripsi::where('tahun_lulus', 'LIKE', '%' . $search . '%')->paginate(10);
+                $results = Skripsi::where('tahun_lulus', 'LIKE', '%' . $search . '%')->paginate(5);
                 return view('user.skripsi', ['skripsi' => $results, 'search' => $search]);
             }
             if ($filter === 'judul') {
-                $results = Skripsi::where('judul_skripsi', 'LIKE', '%' . $search . '%')->paginate(10);
+                $results = Skripsi::where('judul_skripsi', 'LIKE', '%' . $search . '%')->paginate(5);
                 return view('user.skripsi', ['skripsi' => $results, 'search' => $search]);
             }
             if ($filter === 'penulis') {
-                $results = Skripsi::where('nama_penulis', 'LIKE', '%' . $search . '%')->paginate(10);
+                $results = Skripsi::where('nama_penulis', 'LIKE', '%' . $search . '%')->paginate(5);
                 return view('user.skripsi', ['skripsi' => $results, 'search' => $search]);
             }
         }

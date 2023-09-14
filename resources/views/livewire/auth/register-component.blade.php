@@ -1,10 +1,14 @@
 <div>
     <div class="d-flex align-items-center px-md-5">
         <form wire:submit.prevent='register' class="col-12">
+            {{-- ph --}}
             <div class="form-outline mt-3">
                 <label class="form-label" for="name">Nama Lengkap<span class="text-danger fw-bolder">*</span></label>
-                <input wire:model='name' type="text" id="form2Example18" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap" />
+                <input wire:model='name' type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap"/>
                 @error('name') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
+            </div>
+            <div class="form-outline mt-3">
+                <input wire:model='role' type="hidden" value="mahasiswa"/>
             </div>
             <div class="form-outline mt-3">
                 <label class="form-label" for="email">Email<span class="text-danger fw-bolder">*</span></label>

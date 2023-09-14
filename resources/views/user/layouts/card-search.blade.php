@@ -24,43 +24,40 @@
                            <label for="skripsi">Skripsi</label>
                         </div>
                      </div>
-
                      <div class="selected d-flex justify-content-between align-items-center col-12">
-                        <span style="font-size: 13px">Pilih</span>
+                        <span style="font-size: 14px">Pilih</span>
                         <i class="ri-arrow-down-s-line"></i>
                      </div>
                   </div>
 
-                 <div class="select-box position-relative col-6">
-                  <div class="options-container position-absolute col-12">
-                     <div class="option">
-                        <input type="radio" class="radio" id="judul" name="filter" value="judul" />
-                        <label for="judul">Judul</label>
+                  <div class="select-box position-relative col-6">
+                     <div class="options-container position-absolute col-12">
+                        <div class="option">
+                           <input type="radio" class="radio" id="judul" name="filter" value="judul" checked />
+                           <label for="judul">Judul</label>
+                        </div>
+                        <div class="option">
+                           <input type="radio" class="radio" id="penulis" name="filter" value="penulis" />
+                           <label for="penulis">Nama Penulis</label>
+                        </div>
+                        <div class="option">
+                           <input type="radio" class="radio" id="tahun" name="filter" value="tahun" />
+                           <label for="tahun">Tahun Terbit</label>
+                        </div>
                      </div>
-                     <div class="option">
-                        <input type="radio" class="radio" id="penulis" name="filter" value="penulis"  />
-                        <label for="penulis">Nama Penulis</label>
-                     </div>
-                     <div class="option">
-                        <input type="radio" class="radio" id="tahun" name="filter" value="tahun" />
-                        <label for="tahun">Tahun Terbit</label>
-                     </div>
-                  </div>
-                  <div class="selected d-flex justify-content-between align-items-center col-12">
-                     <div class="d-flex align-items-center gap-2">
-                        <i class="ri-equalizer-line" style="font-size: 15px"></i>
-                        <span style="font-size: 13px">Pilih</span>
+                     <div class="selected d-flex align-items-center gap-2 col-12">
+                        <i class="ri-equalizer-line" style="font-size: 14px"></i>
+                        <span style="font-size: 14px">Judul</span>
                      </div>
                   </div>
                </div>
-            </div>
 
                <div class="d-none d-md-block border-start"></div>
-               
+
                <div class="search d-flex align-items-center col-md-7">
                   <i class="ri-search-2-line"></i>
                   <input type="search" id="form1" class="form-input border-0" name="search"
-                     placeholder="Masukan Kata Kunci" style="background-color: rgba(0, 0, 0, 0);"/>
+                     placeholder="Masukan Kata Kunci" style="background-color: rgba(0, 0, 0, 0);" />
                </div>
                <button type="submit" class="d-none"></button>
             </form>
@@ -115,7 +112,7 @@
       if (optionsContainer2.classList.contains("active")) {
       icon2.style.transform = "rotate(180deg)";
       } else {
-      icon2.style.transform = "rotate(0deg)";
+      icon2.style.transform = "rotate(-0deg)";
       }
       });
       
@@ -138,7 +135,7 @@
       selected2.appendChild(icon2);
       
       const span = document.createElement("span");
-      span.style.fontSize = "14px";
+      span.style.fontSize = "14px"
       span.innerHTML = label;
       
       selected2.appendChild(span);

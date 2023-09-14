@@ -18,8 +18,10 @@ class SkripsiComponent extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    public $skripsiId, $kode_skripsi, $nim, $nama_penulis, $judul_skripsi, $tahun_lulus, $pembimbing1, $pembimbing2, $penguji1, $penguji2, $penguji3, $peminatan, $lokasi, $ta_abstrak, $ta_cover;
+    public $skripsiId, $kode_skripsi, $nim, $nama_penulis, $judul_skripsi, $tahun_lulus, $pembimbing1, $pembimbing2, $penguji1, $penguji2, $penguji3, $peminatan, $lokasi, $ta_abstrak, $file, $ta_cover;
     public $search = '';
+    public $kategori;
+    public $urutan = '';
 
     // live validation
     protected $rules = [
@@ -36,7 +38,8 @@ class SkripsiComponent extends Component
         'peminatan' => 'required',
         'lokasi' => 'required',
         'ta_cover' => 'nullable|file|mimes:png,jpg,jpeg,jfif|max:10240', // 10MB
-        'ta_abstrak' => 'nullable|file|mimes:pdf|max:10240', // 10MB
+        // 'ta_abstrak' => '', // 10MB
+        'file' => 'nullable|file|mimes:pdf|max:10240', // 10MB
     ];
 
     protected $messages = [
@@ -91,20 +94,25 @@ class SkripsiComponent extends Component
             $file_skripsi->ta_cover = null;
         }
 
-        if ($this->ta_abstrak) {
-            $extension = $this->ta_abstrak->getClientOriginalExtension();
+        $file_skripsi->ta_abstrak = $this->ta_abstrak;
+
+
+        if ($this->file) {
+            $extension = $this->file->getClientOriginalExtension();
             $fileName = $this->kode_skripsi . '_' . time() . '.' . $extension;
-            $this->ta_abstrak->storeAs('public/skripsi_abstrak', $fileName);
-            $file_skripsi->ta_abstrak = $fileName;
+            $this->file->storeAs('public/skripsi_file', $fileName);
+            $file_skripsi->file = $fileName;
         } else {
-            $file_skripsi->ta_abstrak = null;
+            $file_skripsi->file = null;
         }
+        
         $file_skripsi->save();
 
-        session()->flash('success', 'Data Berhasil di Edit');
+        session()->flash('success', 'Data Berhasil di Tambahkan');
 
         $this->resetForm();
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
     // edit
@@ -126,7 +134,11 @@ class SkripsiComponent extends Component
         $this->peminatan = $skripsi->peminatan;
         $this->lokasi = $skripsi->lokasi;
 
+        $file_skripsi = FileSkripsi::where('id', $id)->first(); 
+        $this->ta_abstrak = $file_skripsi->ta_abstrak;
+
         $this->dispatchBrowserEvent('show-edit-skripsi-modal');
+
     }
 
     public function editSkripsi()
@@ -157,11 +169,14 @@ class SkripsiComponent extends Component
             $file_skripsi->ta_cover = $newFileName;
             $file_skripsi->kode_skripsi = $this->kode_skripsi; // Ubah kode skripsi pada file_skripsi
         }
+
+        $file_skripsi->ta_abstrak = $this->ta_abstrak;
+
         if ($oldKodeSkripsi !== $this->kode_skripsi && $file_skripsi) {
-            $oldFileName = $file_skripsi->ta_abstrak;
+            $oldFileName = $file_skripsi->file;
             $newFileName = str_replace($oldKodeSkripsi, $this->kode_skripsi, $oldFileName);
-            Storage::move('public/skripsi_abstrak/' . $oldFileName, 'public/skripsi_abstrak/' . $newFileName);
-            $file_skripsi->ta_abstrak = $newFileName;
+            Storage::move('public/skripsi_file/' . $oldFileName, 'public/skripsi_file/' . $newFileName);
+            $file_skripsi->file = $newFileName;
             $file_skripsi->kode_skripsi = $this->kode_skripsi; // Ubah kode skripsi pada file_skripsi
         }
 
@@ -182,21 +197,21 @@ class SkripsiComponent extends Component
             $file_skripsi->ta_cover = $fileName;
         }
 
-        if ($this->ta_abstrak instanceof \Illuminate\Http\UploadedFile) {
-            if ($file_skripsi && $file_skripsi->ta_abstrak) {
-                Storage::delete('public/skripsi_abstrak/' . $file_skripsi->ta_abstrak);
+        if ($this->file instanceof \Illuminate\Http\UploadedFile) {
+            if ($file_skripsi && $file_skripsi->file) {
+                Storage::delete('public/skripsi_file/' . $file_skripsi->file);
             }
 
-            $abstrakExtension = $this->ta_abstrak->getClientOriginalExtension();
-            $abstrakFileName = $this->kode_skripsi . '_' . time() . '.' . $abstrakExtension;
-            $abstrakFilePath = $this->ta_abstrak->storeAs('public/skripsi_abstrak', $abstrakFileName);
+            $abstrakExtension = $this->file->getClientOriginalExtension();
+            $fileFileName = $this->kode_skripsi . '_' . time() . '.' . $abstrakExtension;
+            $fileFilePath = $this->file->storeAs('public/skripsi_file', $fileFileName);
 
             if (!$file_skripsi) {
                 $file_skripsi = new FileSkripsi();
                 $file_skripsi->kode_skripsi = $this->kode_skripsi;
             }
 
-            $file_skripsi->ta_abstrak = $abstrakFileName;
+            $file_skripsi->file = $fileFileName;
         }
 
         if ($file_skripsi) {
@@ -207,6 +222,7 @@ class SkripsiComponent extends Component
 
         $this->resetForm();
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
 
@@ -228,16 +244,18 @@ class SkripsiComponent extends Component
             }
         }
 
-        if ($skripsi->fileSkripsi->ta_abstrak) {
-            $filePath = storage_path('app/public/skripsi_abstrak/' . $skripsi->fileSkripsi->ta_abstrak);
+        if ($skripsi->fileSkripsi->file) {
+            $filePath = storage_path('app/public/skripsi_file/' . $skripsi->fileSkripsi->file);
             if (File::exists($filePath)) {
                 File::delete($filePath);
             }
         }
+
         $skripsi->delete();
 
         session()->flash('success', 'Data Berhasil di Hapus');
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
 
@@ -247,6 +265,11 @@ class SkripsiComponent extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function setUrutan($urutan)
+    {
+        $this->urutan = $urutan;
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -254,7 +277,7 @@ class SkripsiComponent extends Component
 
     public function resetForm()
     {
-        $this->reset(['kode_skripsi', 'nim', 'nama_penulis', 'judul_skripsi', 'tahun_lulus', 'pembimbing1', 'pembimbing2', 'penguji1', 'penguji2', 'penguji3', 'peminatan', 'lokasi', 'ta_cover', 'ta_abstrak']);
+        $this->reset(['kode_skripsi', 'nim', 'nama_penulis', 'judul_skripsi', 'tahun_lulus', 'pembimbing1', 'pembimbing2', 'penguji1', 'penguji2', 'penguji3', 'peminatan', 'lokasi', 'ta_cover', 'ta_abstrak', 'file']);
         $this->emit('resetFileInput');
         $this->resetErrorBag();
         $this->resetValidation();
@@ -262,9 +285,56 @@ class SkripsiComponent extends Component
 
     public function render()
     {
-        $skripsi = Skripsi::where('judul_skripsi', 'LIKE', '%' . $this->search . '%')->paginate(15);
+        // $skripsi = Skripsi::where('judul_skripsi', 'LIKE', '%' . $this->search . '%')->paginate(15);
+
+        $skripsiQuery = Skripsi::query();
+
+        if ($this->kategori == 'judul') {
+            $skripsiQuery->where('judul_skripsi', 'LIKE', '%' . $this->search . '%');
+            if ($this->urutan == 'asc') {
+                $skripsiQuery->orderBy('judul_skripsi', 'asc');
+            } elseif ($this->urutan == 'desc') {
+                $skripsiQuery->orderBy('judul_skripsi', 'desc');
+            }
+        }elseif ($this->kategori == 'kode') {
+            $skripsiQuery->where('kode_skripsi', 'LIKE', '%' . $this->search . '%');
+            if ($this->urutan == 'asc') {
+                $skripsiQuery->orderBy('kode_skripsi', 'asc');
+            } elseif ($this->urutan == 'desc') {
+                $skripsiQuery->orderBy('kode_skripsi', 'desc');
+            }
+        } elseif ($this->kategori == 'nim') {
+            $skripsiQuery->where('nim', 'LIKE', '%' . $this->search . '%');
+            if ($this->urutan == 'asc') {
+                $skripsiQuery->orderBy('nim', 'asc');
+            } elseif ($this->urutan == 'desc') {
+                $skripsiQuery->orderBy('nim', 'desc');
+            }
+        } elseif ($this->kategori == 'penulis') {
+            $skripsiQuery->where('nama_penulis', 'LIKE', '%' . $this->search . '%');
+            if ($this->urutan == 'asc') {
+                $skripsiQuery->orderBy('nama_penulis', 'asc');
+            } elseif ($this->urutan == 'desc') {
+                $skripsiQuery->orderBy('nama_penulis', 'desc');
+            }
+        } elseif ($this->kategori == 'tahun') {
+            $skripsiQuery->where('tahun_lulus', 'LIKE', '%' . $this->search . '%');
+            if ($this->urutan == 'asc') {
+                $skripsiQuery->orderBy('tahun_lulus', 'asc');
+            } elseif ($this->urutan == 'desc') {
+                $skripsiQuery->orderBy('tahun_lulus', 'desc');
+            }
+        } elseif ($this->kategori == 'peminatan') {
+            $skripsiQuery->where('peminatan', 'LIKE', '%' . $this->search . '%');
+            if ($this->urutan == 'asc') {
+                $skripsiQuery->orderBy('peminatan', 'asc');
+            } elseif ($this->urutan == 'desc') {
+                $skripsiQuery->orderBy('peminatan', 'desc');
+            }
+        }
+
+        $skripsi = $skripsiQuery->paginate(15);
         $dosen = Dosen::all();
-        $file_skripsi = FileSkripsi::all();
-        return view('livewire.admin.skripsi-component', ['skripsi' => $skripsi, 'dosen' => $dosen, 'file_skripsi' => $file_skripsi])->layout('livewire.admin.layouts.index');
+        return view('livewire.admin.skripsi-component', ['skripsi' => $skripsi, 'dosen' => $dosen])->layout('livewire.admin.layouts.index');
     }
 }

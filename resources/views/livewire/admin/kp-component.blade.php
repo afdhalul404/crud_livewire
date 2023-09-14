@@ -3,7 +3,7 @@
         <h5 class="text-center">Daftar Laporan KP</h5>
     
         <div class="d-flex justify-content-between align-items-center col-12">
-            <div class="d-flex col-10 gap-1">
+            <div class="d-flex col-10 gap-1 align-items-center">
                 @if (session()->has('success'))
                 <script>
                     Swal.fire({
@@ -31,13 +31,13 @@
                 @endif
 
                 <div class="card border-0 rounded-0 bg-body shadow-sm rounded col-3 px-1">
-                    <form>
+                    <form class="">
                         <div class="p-1 d-flex justify-content-between">
-                            <input wire:model='search' type="text" class="form-input border-0 col-10" placeholder="Cari"
+                            <input wire:model="search" wire:keyup.debounce.500ms="render" type="text" class="form-input border-0 col-10" placeholder="Cari"
                                 style="font-size: 14px;" name="keyword"
                                 onfocus="this.style.outline='none'; this.style.borderColor='transparent'; this.style.boxShadow='none';" />
                             <div class=" card border-0 rounded-2"
-                                style="background-color: #536bf6; width: 35px; height: 35px">
+                                style="background-color: #6610F2; width: 35px; height: 35px">
                                 <button type="submit" class=""
                                     style="border: none; background-color: transparent; padding: 5px 0;">
                                     <i class="ri-search-2-line" style="color: #fff; margin-top: 10px"></i>
@@ -46,7 +46,40 @@
                         </div>
                     </form>
                 </div>
-    
+
+                <div class="col-2">
+                    <div wire:model="kategori" wire:change="render" wire:ignore class="select-box position-relative" style="font-size: 14px">
+                        <div class="options-container position-absolute col-12">
+                            <div class="option">
+                                <input type="radio" class="radio" id="judul" name="category" value="judul" />
+                                <label for="judul">Judul</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" class="radio" id="kode" name="category" value="kode" />
+                                <label for="kode">Kode</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" class="radio" id="lokasi" name="category" value="lokasi" />
+                                <label for="lokasi">Lokasi KP</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" class="radio" id="tahun" name="category" value="tahun" />
+                                <label for="tahun">Tahun</label>
+                            </div>
+                        </div>
+                    
+                        <div class="selected d-flex justify-content-between align-items-center col-12">
+                            <span>Pilih</span>
+                            <i class="ri-arrow-drop-down-line"></i>
+                        </div>
+                    </div> 
+                </div>
+               <div class="">
+                    <button wire:click="setUrutan('asc')" type="button" class="btn btn-sm" style="background-color: #6610F2; color: #fff"><i
+                            class="ri-sort-asc"></i></button>
+                    <button wire:click="setUrutan('desc')" type="button" class="btn btn-sm" style="background-color: #6610F2; color: #fff"><i
+                            class="ri-sort-desc"></i></button>
+                </div>
             </div>
     
             <div class="col-2 d-flex justify-content-end">
@@ -59,11 +92,11 @@
             <table class="text-center table pb-3" id="dataTable">
                 <thead>
                     <tr class="table-info">
-                        <th class="col-1">#</th>
-                        <th class="col-1">Kode</th>
-                        <th class="col-3">Judul</th>
+                        <th class="">#</th>
+                        <th class="">Kode</th>
+                        <th class="col-4">Judul</th>
                         <th class="col-2">Lokasi Kp</th>
-                        <th class="col-2">Tim Kp</th>
+                        <th class="col-3">Tim Kp</th>
                         <th class="col-1">Tahun</th>
                         <th class="col-2">Action</th>
     
@@ -258,14 +291,21 @@
                             @error('pembimbing_lapangan') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="kp_abstrak">Abstrak</label>
+                                <textarea wire:model='kp_abstrak' class="form-control @error('kp_abstrak') is-invalid @enderror"
+                                    name="kp_abstrak" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="file">File KP</label>
+                            <input wire:model='file' type="file" class="form-control @error('file') is-invalid @enderror" name="file">
+                            @error('file') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
                             <label for="kp_cover">Cover</label>
                             <input wire:model='kp_cover' type="file" name="kp_cover" class="form-control @error('kp_cover') is-invalid @enderror">
                             @error('kp_cover') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="kp_abstrak">File Abstrak</label>
-                            <input wire:model='kp_abstrak' type="file" name="kp_abstrak" class="form-control @error('kp_abstrak') is-invalid @enderror">
-                            @error('kp_abstrak') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="modal-footer">
                             <button wire:click="resetForm" type="button" class="btn btn-secondary"
@@ -403,16 +443,23 @@
                             @error('pembimbing_lapangan') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="kp_abstrak">Abstrak</label>
+                                <textarea wire:model='kp_abstrak' class="form-control @error('kp_abstrak') is-invalid @enderror"
+                                    name="kp_abstrak" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="file">File KP</label>
+                            <input wire:model='file' type="file" name="file"
+                                class="form-control @error('file') is-invalid @enderror">
+                            @error('file') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
                             <label for="kp_cover">Cover</label>
                             <input wire:model='kp_cover' type="file" name="kp_cover"
                                 class="form-control @error('kp_cover') is-invalid @enderror">
                             @error('kp_cover') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="kp_abstrak">File Abstrak</label>
-                            <input wire:model='kp_abstrak' type="file" name="kp_abstrak"
-                                class="form-control @error('kp_abstrak') is-invalid @enderror">
-                            @error('kp_abstrak') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                         </div>
                        
     
@@ -481,5 +528,46 @@
                 }
             });
         });
+
+        //dropdown
+        const initializeDropdown = () => {
+        const selected1 = document.querySelector(".select-box:nth-of-type(1) .selected");
+        const optionsContainer1 = document.querySelector(".select-box:nth-of-type(1) .options-container");
+        const optionsList1 = document.querySelectorAll(".select-box:nth-of-type(1) .option");
+        
+        selected1.addEventListener("click", () => {
+        optionsContainer1.classList.toggle("active");
+        selected1.classList.toggle("active");
+        
+        // Putar ikon saat dropdown aktif
+        const icon1 = selected1.querySelector("i");
+        if (optionsContainer1.classList.contains("active")) {
+        icon1.style.transform = "rotate(180deg)";
+        } else {
+        icon1.style.transform = "rotate(0deg)";
+        }
+        });
+        
+        optionsList1.forEach((o) => {
+        o.addEventListener("click", () => {
+        selected1.innerHTML = o.querySelector("label").innerHTML;
+        optionsContainer1.classList.remove("active");
+        selected1.classList.remove("active");
+        
+        // Tambahkan kembali ikon setelah item terpilih
+        const icon1 = document.createElement("i");
+        icon1.classList.add("ri-arrow-drop-down-line");
+        selected1.appendChild(icon1);
+        });
+        });
+        };
+        
+        // Panggil fungsi untuk menginisialisasi dropdown setelah komponen Livewire di-refresh
+        Livewire.on('received', () => {
+        initializeDropdown();
+        });
+        
+        // Inisialisasi dropdown saat halaman pertama kali dimuat
+        initializeDropdown();
 </script>
 @endpush

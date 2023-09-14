@@ -59,7 +59,7 @@
             <li class="sidebar-menu-item {{ Request::is('admin/kp') ? 'active' : '' }}">
                 <a href="/admin/kp">
                     <i class="ri-team-line sidebar-menu-item-icon"></i>
-                    Laporan Kerja Praktek
+                    Laporan Kerja Praktik
                 </a>
             </li>
         </ul>
@@ -89,7 +89,7 @@
                         aria-expanded="false">
                         <i class="ri-notification-line"></i>
                     </div>
-                    <div class="dropdown-menu fx-dropdown-menu">
+                    {{-- <div class="dropdown-menu fx-dropdown-menu">
                         <h5 class="p-3 bg-indigo text-light">Notification</h5>
                         <div class="list-group list-group-flush">
                             <a href="#"
@@ -101,7 +101,7 @@
                                 <span class="badge bg-primary rounded-pill">14</span>
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="dropdown">
                     <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
@@ -109,15 +109,15 @@
                         @auth
                         <span class="me-2 d-none d-sm-block">{{ Auth::user()->name }}</span>
                         <img class="navbar-profile-image"
-                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                            src="{{ asset('img/admin-default.png') }}"
                             alt="Image">
                         @endauth
                     </div>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </nav>
             <!-- end: Navbar -->

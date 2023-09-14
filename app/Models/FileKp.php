@@ -11,7 +11,7 @@ class FileKp extends Model
     protected $table = 'file_kp';
     public $timestamps = false;
     const UPDATED_AT = null;
-    protected $nullable = ['kp_cover', 'kp_abstrak'];
+    protected $nullable = ['kp_cover', 'kp_abstrak', 'file'];
 
     public function kp()
     {

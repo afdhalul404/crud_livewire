@@ -12,7 +12,6 @@ class RegisterComponent extends Component
     public $role, $name, $email, $identity, $tahun_masuk, $password, $confirm_password;
 
     protected $rules = [
-        'role' => 'required',
         'name' => 'required',
         'email' => 'required|email|unique:users',
         'tahun_masuk' => 'required|',
@@ -38,10 +37,9 @@ class RegisterComponent extends Component
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
-            'identity' => $this->identity,
+            'identity' => $this->identity,   
             'tahun_masuk' => $this->tahun_masuk,
             'password' => bcrypt($this->password), // Menggunakan fungsi bcrypt() untuk mengenkripsi password
-            'role' => $this->role,
         ]);
 
         Auth::login($user);

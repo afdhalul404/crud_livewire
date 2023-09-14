@@ -18,10 +18,10 @@
 
 </head>
 
-<body>
+<body style="background-image: url('img/bg-auth.png'); background-repeat: no-repeat; background-size: contain; background-position: right top; background-size: 55% 110px;">
 
-    <main style="">
-        <div class="container-fluid">
+    <main>
+        <div class="container-fluid ">
             <div class="row" style="height: 100%;">
                 <div class="d-none d-md-flex col-5 position-fixed align-items-center justify-content-center"
                     style="background-color: #003487; height: 100vh;">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-12 col-md-5 offset-md-5">
                     <div class="row pb-2 pt-3 ms-xl-4">
-                        <div class="text-primary mb-4">
+                        <div class="text-primary mb-4 mt-md-4">
                             <a href="/" class="text-decoration-none text-reset d-flex"
                                 style="font-size: 18px">
                                 <i class="ri-arrow-left-s-line fw-bolder" style="font-size: 20px"></i>Beranda

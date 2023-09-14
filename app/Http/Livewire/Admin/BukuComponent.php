@@ -18,8 +18,12 @@ class BukuComponent extends Component
     
     protected $paginationTheme = 'bootstrap';
 
-    public $bukuId, $kode_buku, $judul_buku, $penulis, $penerbit, $tahun_terbit, $stok, $cover, $kategori;
+    public $bukuId, $kode_buku, $judul_buku, $penulis, $penerbit, $tahun_terbit, $stok, $cover;
     public $search = '';
+    public $urutan = '';
+    public $kategori = null;
+
+
 
     // live validation
     protected $rules = [
@@ -76,6 +80,7 @@ class BukuComponent extends Component
 
         $this->resetForm();
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
     // edit
@@ -134,6 +139,7 @@ class BukuComponent extends Component
 
         $this->resetForm();
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
 
@@ -158,6 +164,7 @@ class BukuComponent extends Component
 
         session()->flash('success', 'Data Berhasil di Hapus');
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
 
@@ -172,6 +179,16 @@ class BukuComponent extends Component
         $this->resetPage();
     }
 
+    public function dropdownChanged($value)
+    {
+        $this->kategori = $value;
+    }
+
+    public function setUrutan($urutan)
+    {
+        $this->urutan = $urutan;
+    }
+
 
     public function resetForm()
     {
@@ -183,7 +200,29 @@ class BukuComponent extends Component
 
     public function render()
     {
-        $buku = Buku::where('judul_buku', 'LIKE', '%' . $this->search . '%')->paginate(15);
+        $bukuQuery = Buku::query();
+
+        if ($this->kategori == 'judul') {
+            $bukuQuery->where('judul_buku', 'LIKE', '%' . $this->search . '%');
+        } elseif ($this->kategori == 'kode') {
+            $bukuQuery->where('kode_buku', 'LIKE', '%' . $this->search . '%');
+        } elseif ($this->kategori == 'tahun') {
+            $bukuQuery->where('tahun_terbit', 'LIKE', '%' . $this->search . '%');
+        } elseif ($this->kategori == 'penulis') {
+            $bukuQuery->where('penulis', 'LIKE', '%' . $this->search . '%');
+        } elseif ($this->kategori == 'penerbit') {
+            $bukuQuery->where('penerbit', 'LIKE', '%' . $this->search . '%');
+        } elseif ($this->kategori == 'kategori') {
+            $bukuQuery->where('kategori', 'LIKE', '%' . $this->search . '%');
+        }
+
+        if ($this->urutan == 'asc') {
+            $bukuQuery->orderBy('id', 'asc');
+        } elseif ($this->urutan == 'desc') {
+            $bukuQuery->orderBy('id', 'desc');
+        }
+
+        $buku = $bukuQuery->paginate(15);
         return view('livewire.admin.buku-component', ['buku' => $buku])->layout('livewire.admin.layouts.index');
     }
 }

@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('kode_skripsi');
             $table->string('ta_cover')->nullable();
-            $table->string('ta_abstrak')->nullable();
+            $table->text('ta_abstrak')->nullable();
+            $table->string('file')->nullable();
 
             $table->foreign('id')->references('id')->on('skripsi')->onDelete('cascade');
         });

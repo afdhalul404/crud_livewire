@@ -67,9 +67,9 @@
       @endphp
    
       <div class="pb-3 d-flex justify-content-between align-items-center">
-         <h4 class="text-white">Rekomendasi Pustaka</h4>
+         <h4 class="">Rekomendasi Pustaka</h4>
          <div class="d-flex align-items-center">
-            <a href="/pustaka_lainnya" class="text-decoration-none text-white">Lihat Lainnya</a>
+            <a href="/pustaka_lainnya" class="text-decoration-none">Lihat Lainnya</a>
             <i class="ri-arrow-drop-right-line pt-1 text-white" style="font-size: 20px"></i>
          </div>
           
@@ -142,14 +142,15 @@
                      <button class="accordion-button collapsed border-0 fw-normal" type="button"
                         data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
                         aria-controls="flush-collapseOne">
-                        Lorem ipsum dolor sit amet?
+                        Apa itu e-library teknik informatika?
                      </button>
                   </h2>
                   <div id="flush-collapseOne" class="accordion-collapse collapse border-0"
                      aria-labelledby="flush-headingOne" data-bs-parent="#myAccordion1">
                      <div class="accordion-body p-4">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quia nam veniam autem illum
-                           similique quam nostrum aut sint eos repudiandae nesciunt, vel quaerat ex?</p>
+                        <p>E-library teknik informatika adalah platform digital yang memungkinkan akses online ke berbagai sumber daya informasi,
+                        termasuk buku, skripsi, dan laporan kerja praktek. Platform ini dirancang untuk memfasilitasi
+                        pencarian, akses, dan penggunaan sumber daya tersebut oleh pengguna.</p>
                      </div>
                   </div>
                </div>
@@ -163,14 +164,15 @@
                      <button class="accordion-button collapsed border-0 fw-normal" type="button"
                         data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
                         aria-controls="flush-collapseTwo">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro delectus quae commodi?
+                        Apa sumber daya yang tersedia di e-library teknik informatika?
                      </button>
                   </h2>
                   <div id="flush-collapseTwo" class="accordion-collapse collapse border-0"
                      aria-labelledby="flush-headingTwo" data-bs-parent="#myAccordion2">
                      <div class="accordion-body p-4">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quia nam veniam autem illum
-                           similique quam nostrum aut sint eos repudiandae nesciunt, vel quaerat ex?</p>
+                        <p>E-library teknik informatika menyediakan sumber daya seperti buku elektronik, jurnal ilmiah, makalah konferensi, dan
+                        artikel terkait dengan bidang teknik informatika. Anda dapat mengakses materi-materi ini untuk mendukung studi dan
+                        penelitian Anda dalam bidang tersebut.</p>
                      </div>
                   </div>
                </div>
@@ -184,14 +186,15 @@
                      <button class="accordion-button collapsed border-0 fw-normal" type="button"
                         data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
                         aria-controls="flush-collapseThree">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit?
+                       Bagaimana cara mencari sumber daya teknik informatika di e-library ini?
                      </button>
                   </h2>
                   <div id="flush-collapseThree" class="accordion-collapse collapse border-0"
                      aria-labelledby="flush-headingThree" data-bs-parent="#myAccordion3">
                      <div class="accordion-body p-4">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quia nam veniam autem illum
-                           similique quam nostrum aut sint eos repudiandae nesciunt, vel quaerat ex?</p>
+                        <p>Kami menyediakan fitur pencarian khusus untuk sumber daya teknik informatika di dalam sistem informasi e-library. Anda
+                        dapat memasukkan kata kunci, judul, penulis, atau topik spesifik yang terkait dengan teknik informatika untuk
+                        mendapatkan hasil pencarian yang relevan dengan bidang tersebut.</p>
                      </div>
                   </div>
                </div>
@@ -205,15 +208,15 @@
                      <button class="accordion-button collapsed border-0 fw-normal" type="button"
                         data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false"
                         aria-controls="flush-collapseFour">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quisquam voluptates alias
-                        odit eveniet?
+                       Apakah ada koleksi khusus dalam e-library ini yang terfokus pada sub-bidang tertentu dalam teknik informatika?
                      </button>
                   </h2>
                   <div id="flush-collapseFour" class="accordion-collapse collapse border-0"
                      aria-labelledby="flush-headingFour" data-bs-parent="#myAccordion4">
                      <div class="accordion-body p-4">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quia nam veniam autem illum
-                           similique quam nostrum aut sint eos repudiandae nesciunt, vel quaerat ex?</p>
+                        <p>Ya, e-library teknik informatika kami juga memiliki koleksi khusus yang terfokus pada sub-bidang tertentu dalam teknik
+                        informatika. Misalnya, ada koleksi yang mencakup kecerdasan buatan, pengembangan perangkat lunak, jaringan komputer,
+                        basis data, dan lain sebagainya. Anda dapat menjelajahi koleksi ini untuk mendapatkan sumber daya yang lebih spesifik.</p>
                      </div>
                   </div>
                </div>
@@ -227,14 +230,12 @@
                      <button class="accordion-button collapsed border-0 fw-normal" type="button"
                         data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false"
                         aria-controls="flush-collapseFive">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing.
-                     </button>
+                        Bisakah saya mengunduh file dokumen yang ada dalam e-library ini?
                   </h2>
                   <div id="flush-collapseFive" class="accordion-collapse collapse border-0"
                      aria-labelledby="flush-headingFive" data-bs-parent="#myAccordion5">
                      <div class="accordion-body p-4">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quia nam veniam autem illum
-                           similique quam nostrum aut sint eos repudiandae nesciunt, vel quaerat ex?</p>
+                        <p>Ya, anda dapa mengunduh file dokumen setelah anda login.</p>
                      </div>
                   </div>
                </div>
@@ -275,29 +276,29 @@
             <div class="card px-4 py-2">
                <div class=""></div>
                <div class="">
-                  <h6>Lorem ipsum</h6>
+                  <h6>No Handphone</h6>
+                  <p>04013195285</p>
+               </div>
+            </div>
+            <div class="card px-4 py-2">
+               <div class=""></div>
+               <div class="">
+                  <h6>Email</h6>
+                  <p>info@uho.ac.id</p>
+               </div>
+            </div>
+            <div class="card px-4 py-2">
+               <div class=""></div>
+               <div class="">
+                  <h6>Instagram</h6>
                   <p>xxxx xxx xxxx</p>
                </div>
             </div>
             <div class="card px-4 py-2">
                <div class=""></div>
                <div class="">
-                  <h6>Lorem ipsum</h6>
-                  <p>xxxx xxx xxxx</p>
-               </div>
-            </div>
-            <div class="card px-4 py-2">
-               <div class=""></div>
-               <div class="">
-                  <h6>Lorem ipsum</h6>
-                  <p>xxxx xxx xxxx</p>
-               </div>
-            </div>
-            <div class="card px-4 py-2">
-               <div class=""></div>
-               <div class="">
-                  <h6>Lorem ipsum</h6>
-                  <p>xxxx xxx xxxx</p>
+                  <h6>Lokasi</h6>
+                  <p>Kampus Bumi Tridharma Anduonohu, Jalan H.E.A. Mokodompit, Kodya Kendari, Sulawes</p>
                </div>
             </div>
          </div>
@@ -306,8 +307,7 @@
             <div class="card" style="background: hsla(0, 0%, 100%, 0.956)">
                <div class="card-body p-3 shadow-5">
                   <div class="pt-2">
-                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, corrupti tempore.
-                        Optiorecusandae.</p>
+                     <p>Hubungi kami sekarang jika terjadi kendala atau masalah dalam mengakses website kami.</p>
                   </div>
                   <form action="" class="pt-3">
                      <div class="d-flex gap-2 mb-3">
@@ -332,16 +332,6 @@
    </div>
 </div>
 
-{{-- <div class="" style="height: 70vh; background-color: #003487;">
-   <div class="container pt-5 d-flex flex-column align-items-center" style="height: 100%">
-      <h3 class="text-white text-center">Lokasi</h3>
-      <div class="mt-4" style="background-color: #b8b7b7; width: 50%; height: 70%; border-radius: 10px">
-
-      </div>
-
-   </div>
-
-</div> --}}
 @endsection
 @push('scripts')
     <script>

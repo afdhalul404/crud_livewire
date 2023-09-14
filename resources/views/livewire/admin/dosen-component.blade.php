@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="col-2">
-                    <div wire:model="kategori" wire:change="render" class="select-box position-relative" style="font-size: 14px">
+                    <div wire:ignore wire:model="kategori" wire:change="render" class="select-box position-relative" style="font-size: 14px">
                         <div class="options-container position-absolute col-12">
                             <div class="option">
                                 <input type="radio" class="radio" id="nama" name="category" value="nama" />
@@ -93,7 +93,7 @@
                 <tbody>
                    @foreach ($dosen as $index => $item)
                 <tr>
-                    <td>{{ $dosen->firstItem() + $index }}</td>
+                    <td class="text-center">{{ $dosen->firstItem() + $index }}</td>
                     <td>{{ $item->nip }}</td>
                     <td>{{ $item->nama_dosen }}</td>
                     <td class="text-center">
@@ -166,7 +166,6 @@
                             <label for="kota">NIP<span class="text-danger fw-bolder">*</span></label>
                             <input wire:model='nip' type="text" name="nip" class="form-control @error('nip') is-invalid @enderror">
                             @error('nip') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
-    
                         </div>
                         <div class="mb-3">
                             <label for="nama">Nama Dosen<span class="text-danger fw-bolder">*</span></label>
@@ -215,54 +214,59 @@
 </div>
 @push('scripts')
 <script>
-    window.addEventListener('close-modal', event =>{
-            $('#addDosenModal').modal('hide');
-            $('#editDosenModal').modal('hide');
-            $('#deleteDosenModal').modal('hide');
-        });
+    window.addEventListener('close-modal', event => {
+        $('#addDosenModal').modal('hide');
+        $('#editDosenModal').modal('hide');
+        $('#deleteDosenModal').modal('hide');
+    });
 
-        window.addEventListener('show-edit-dosen-modal', event =>{
-            $('#editDosenModal').modal('show');
-        });
+    window.addEventListener('show-edit-dosen-modal', event => {
+        $('#editDosenModal').modal('show');
+    });
 
-        window.addEventListener('show-delete-dosen-modal', event =>{
-            $('#deleteDosenModal').modal('show');
-        });
+    window.addEventListener('show-delete-dosen-modal', event => {
+        $('#deleteDosenModal').modal('show');
+    });
 
-        window.addEventListener('show-view-student-modal', event =>{
-            $('#viewStudentModal').modal('show');
-        });
-
-        //dropdown
+    //dropdown
+    const initializeDropdown = () => {
         const selected1 = document.querySelector(".select-box:nth-of-type(1) .selected");
         const optionsContainer1 = document.querySelector(".select-box:nth-of-type(1) .options-container");
         const optionsList1 = document.querySelectorAll(".select-box:nth-of-type(1) .option");
-        
+
         selected1.addEventListener("click", () => {
-        optionsContainer1.classList.toggle("active");
-        selected1.classList.toggle("active");
-        
-        // Putar ikon saat dropdown aktif
-        const icon1 = selected1.querySelector("i");
-        if (optionsContainer1.classList.contains("active")) {
-        icon1.style.transform = "rotate(180deg)";
-        } else {
-        icon1.style.transform = "rotate(0deg)";
-        }
+            optionsContainer1.classList.toggle("active");
+            selected1.classList.toggle("active");
+
+            // Putar ikon saat dropdown aktif
+            const icon1 = selected1.querySelector("i");
+            if (optionsContainer1.classList.contains("active")) {
+                icon1.style.transform = "rotate(180deg)";
+            } else {
+                icon1.style.transform = "rotate(0deg)";
+            }
         });
-        
+
         optionsList1.forEach((o) => {
-        o.addEventListener("click", () => {
-        selected1.innerHTML = o.querySelector("label").innerHTML;
-        optionsContainer1.classList.remove("active");
-        selected1.classList.remove("active");
-        
-        // Tambahkan kembali ikon setelah item terpilih
-        const icon1 = document.createElement("i");
-        icon1.classList.add("ri-arrow-drop-down-line");
-        selected1.appendChild(icon1);
+            o.addEventListener("click", () => {
+                selected1.innerHTML = o.querySelector("label").innerHTML;
+                optionsContainer1.classList.remove("active");
+                selected1.classList.remove("active");
+
+                // Tambahkan kembali ikon setelah item terpilih
+                const icon1 = document.createElement("i");
+                icon1.classList.add("ri-arrow-drop-down-line");
+                selected1.appendChild(icon1);
+            });
         });
-        });
-        
+    };
+
+    // Panggil fungsi untuk menginisialisasi dropdown setelah komponen Livewire di-refresh
+    Livewire.on('received', () => {
+        initializeDropdown();
+    });
+
+    // Inisialisasi dropdown saat halaman pertama kali dimuat
+    initializeDropdown();
 </script>
 @endpush

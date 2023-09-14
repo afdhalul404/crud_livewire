@@ -11,7 +11,7 @@ class FileSkripsi extends Model
     protected $table = 'file_skripsi';
     public $timestamps = false;
     const UPDATED_AT = null;
-    protected $nullable = ['ta_cover', 'ta_abstrak'];
+    protected $nullable = ['ta_cover', 'ta_abstrak', 'file'];
 
     public function skripsi()
     {

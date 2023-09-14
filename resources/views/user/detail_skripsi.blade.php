@@ -15,12 +15,12 @@
             @endif
          </div>
 
-         <div class="card p-md-5 p-3 col-12 col-md-8 mt-5">
+         <div class="card p-md-4 p-3 col-12 col-md-8 mt-5">
             <h5 class="mb-3">{{ $skripsi->judul_skripsi }}</h5>
             <div class="d-flex mb-3">
                @auth
-               @if ($skripsi->fileSkripsi->ta_abstrak)
-               <a href="/storage/skripsi_abstrak/{{ $skripsi->fileSkripsi->ta_abstrak }}" download class="btn btn-sm text-white fw-bold" style="background-color: #FE8E45;">
+               @if ($skripsi->fileSkripsi->file)
+               <a href="/storage/skripsi_file/{{ $skripsi->fileSkripsi->file }}" download class="btn btn-sm text-white fw-bold" style="background-color: #FE8E45;">
                   Unduh File
                </a>
                @endif
@@ -28,7 +28,7 @@
             </div>
             <table class="table">
                <tr col-6>
-                  <td>
+                  <td class="col-3">
                      <div class="d-flex gap-2"><i class="ri-user-6-line text-secondary"></i>
                         <p class="" style="font-size: 15px"><strong>Nama Penulis</strong></p>
                      </div>
@@ -38,7 +38,7 @@
                   </td>
                </tr>
                <tr col-6>
-                  <td>
+                  <td class="col-3">
                      <div class="d-flex gap-2"><i class="ri-account-box-line text-secondary"></i>
                         <p><strong>Nim</strong></p>
                      </div>
@@ -48,7 +48,7 @@
                   </td>
                </tr>
                <tr col-6>
-                  <td>
+                  <td class="col-3">
                      <div class="d-flex gap-2"><i class="ri-calendar-line text-secondary"></i>
                         <p><strong>Tahun Lulus</strong></p>
                      </div>
@@ -58,7 +58,7 @@
                   </td>
                </tr>
                <tr col-6>
-                  <td>
+                  <td class="col-3">
                      <div class="d-flex gap-2"><i class="ri-user-2-line text-secondary"></i>
                         <p><strong>Pembimbing 1</strong></p>
                      </div>
@@ -68,7 +68,7 @@
                   </td>
                </tr>
                <tr col-6>
-                  <td>
+                  <td class="col-3">
                      <div class="d-flex gap-2"><i class="ri-user-2-line text-secondary"></i>
                         <p><strong>Pembimbing 2</strong></p>
                      </div>
@@ -77,7 +77,8 @@
                      <p class="text-secondary">{{ $skripsi->dosen2->nama_dosen }}</p>
                   </td>
                </tr>
-               <tr col-6>
+
+               {{-- <tr col-6>
                   <td>
                      <div class="d-flex gap-2"><i class="ri-user-star-line text-secondary"></i>
                         <p><strong>Penguji 1</strong></p>
@@ -106,9 +107,19 @@
                   <td>
                      <p class="text-secondary">{{ $skripsi->dosen5->nama_dosen }}</p>
                   </td>
+               </tr> --}}
+               <tr col-6>
+                  <td class="col-3">
+                     <div class="d-flex gap-2"><i class="ri-file-pdf-line"></i>
+                        <p><strong>Abstrak</strong></p>
+                     </div>
+                  </td>
+                  <td>
+                     <p class="text-secondary">{{ $skripsi->fileSkripsi->ta_abstrak }}</p>
+                  </td>
                </tr>
                <tr col-6>
-                  <td>
+                  <td class="col-3">
                      <div class="d-flex gap-2"><i class="ri-checkbox-multiple-line text-secondary"></i>
                         <p><strong>Peminatan</strong></p>
                      </div>
@@ -118,7 +129,7 @@
                   </td>
                </tr>
                <tr col-6>
-                  <td>
+                  <td class="col-3">
                      <div class="d-flex gap-2"><i class="ri-earth-line text-secondary"></i>
                         <p><strong>Lokasi</strong></p>
                      </div>
@@ -126,25 +137,6 @@
                   <td>
                      <p class="text-secondary">{{ $skripsi->lokasi }}</p>
                   </td>
-               </tr>
-               <tr col-6>
-                  <td>
-                     <div class="d-flex gap-2"><i class="ri-file-pdf-line"></i>
-                        <p><strong>Abstrak</strong></p>
-                     </div>
-                  </td>
-                 <td>
-                  @auth
-                     @if ($skripsi->fileSkripsi->ta_abstrak === null)
-                     <p class="text-secondary">-</p>
-                  @else
-                     <a href="/storage/skripsi_abstrak/{{ $skripsi->fileSkripsi->ta_abstrak }}">Lihat File Abstrak</a>
-                  @endif
-                  @else
-                     <a href="{{ route('login') }}">Lihat File Abstrak</a>
-                  @endauth
-               </td>
-              
                </tr>
             </table>
          </div>

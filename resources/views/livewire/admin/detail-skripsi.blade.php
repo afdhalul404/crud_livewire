@@ -28,6 +28,15 @@
                         <td>{{ $skripsi->nim }}</td>
                     </tr>
                     <tr>
+                        <td>Abstrak</td>
+                        <td>:</td>
+                        @if ($skripsi->fileSkripsi->ta_abstrak === '')
+                        <td><p class="text-secondary">-</p></td>
+                        @else
+                        <td>{{ $skripsi->fileSkripsi->ta_abstrak }}</td>
+                        @endif
+                    </tr>
+                    <tr>
                         <td>Tahun Lulus</td>
                         <td>:</td>
                         <td>{{ $skripsi->tahun_lulus }}</td>
@@ -68,13 +77,13 @@
                         <td>{{ $skripsi->lokasi }}</td>
                     </tr>
                     <tr>
-                        <td>Abstrak</td>
+                        <td>File</td>
                         <td>:</td>
                         <td>
-                            @if ($skripsi->fileSkripsi->ta_abstrak === null)
+                            @if ($skripsi->fileSkripsi->file === null)
                             <p class="text-secondary">-</p>
                             @else
-                            <a href="/storage/skripsi_abstrak/{{ $skripsi->fileSkripsi->ta_abstrak }}">Lihat File Abstrak</a>
+                            <a href="/storage/skripsi_file/{{ $skripsi->fileSkripsi->file }}">Lihat File Skripsi</a>
                             @endif
                         </td>
                     </tr>

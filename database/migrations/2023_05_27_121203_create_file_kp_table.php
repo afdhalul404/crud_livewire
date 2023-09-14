@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('kode_kp')->unique();
             $table->string('kp_cover')->nullable();
-            $table->string('kp_abstrak')->nullable();
+            $table->text('kp_abstrak')->nullable();
+            $table->string('file')->nullable();
 
             $table->foreign('id')->references('id')->on('kp')->onDelete('cascade');
         });

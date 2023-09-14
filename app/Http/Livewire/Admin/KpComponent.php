@@ -17,8 +17,10 @@ class KpComponent extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    public $kpId, $kode_kp, $judul_kp, $tempat_kp, $tahun, $nim1, $nim2, $nim3, $nim4, $nim5, $mahasiswa1, $mahasiswa2, $mahasiswa3, $mahasiswa4, $mahasiswa5, $pembimbing_jurusan, $pembimbing_lapangan, $kp_cover, $kp_abstrak;
+    public $kpId, $kode_kp, $judul_kp, $tempat_kp, $tahun, $nim1, $nim2, $nim3, $nim4, $nim5, $mahasiswa1, $mahasiswa2, $mahasiswa3, $mahasiswa4, $mahasiswa5, $pembimbing_jurusan, $pembimbing_lapangan, $kp_cover, $kp_abstrak, $file;
     public $search = '';
+    public $kategori = null;
+    public $urutan = '';
 
     protected $rules = [
         'kode_kp' => 'required|unique:kp',
@@ -31,7 +33,7 @@ class KpComponent extends Component
 
         'pembimbing_jurusan' => 'required',
         'kp_cover' => 'nullable|file|mimes:png,jpg,jpeg,jfif|max:10240', // 10MB
-        'kp_abstrak' => 'nullable|file|mimes:pdf|max:10240', // 10MB
+        'file' => 'nullable|file|mimes:pdf|max:10240', // 10MB
     ];
 
     protected $messages = [
@@ -82,13 +84,15 @@ class KpComponent extends Component
             $file_kp->kp_cover = null;
         }
 
-        if ($this->kp_abstrak) {
-            $extension = $this->kp_abstrak->getClientOriginalExtension();
+        $file_kp->kp_abstrak = $this->kp_abstrak;
+
+        if ($this->file) {
+            $extension = $this->file->getClientOriginalExtension();
             $fileName = $this->kode_kp . '_' . time() . '.' . $extension;
-            $this->kp_abstrak->storeAs('public/kp_abstrak', $fileName);
-            $file_kp->kp_abstrak = $fileName;
+            $this->file->storeAs('public/kp_file', $fileName);
+            $file_kp->file = $fileName;
         } else {
-            $file_kp->kp_abstrak = null;
+            $file_kp->file = null;
         }
         $file_kp->save();
 
@@ -96,6 +100,7 @@ class KpComponent extends Component
 
         $this->resetForm();
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
     // edit
@@ -120,6 +125,9 @@ class KpComponent extends Component
         $this->mahasiswa5 = $kp->mahasiswa5;
         $this->pembimbing_jurusan = $kp->pembimbing_jurusan;
         $this->pembimbing_lapangan = $kp->pembimbing_lapangan;
+        
+        $file_kp = FileKp::where('id', $id)->first();
+        $this->kp_abstrak = $file_kp->kp_abstrak;
 
         $this->dispatchBrowserEvent('show-edit-kp-modal');
     }
@@ -149,6 +157,7 @@ class KpComponent extends Component
 
         $file_kp = FileKp::where('kode_kp', $oldKodeKp)->first();
         $file_kp->kode_kp = $this->kode_kp;
+        $file_kp->kp_abstrak = $this->kp_abstrak;
         if ($oldKodeKp !== $this->kode_kp && $file_kp) {
             $oldFileName = $file_kp->kp_cover;
             $newFileName = str_replace($oldKodeKp, $this->kode_kp, $oldFileName);
@@ -157,10 +166,10 @@ class KpComponent extends Component
             $file_kp->kode_kp = $this->kode_kp; // Ubah kode skripsi pada file_kp
         }
         if ($oldKodeKp !== $this->kode_kp && $file_kp) {
-            $oldFileName = $file_kp->kp_abstrak;
+            $oldFileName = $file_kp->file;
             $newFileName = str_replace($oldKodeKp, $this->kode_kp, $oldFileName);
-            Storage::move('public/kp_abstrak/' . $oldFileName, 'public/kp_abstrak/' . $newFileName);
-            $file_kp->kp_abstrak = $newFileName;
+            Storage::move('public/kp_file/' . $oldFileName, 'public/kp_file/' . $newFileName);
+            $file_kp->file = $newFileName;
             $file_kp->kode_kp = $this->kode_kp; // Ubah kode skripsi pada file_kp
         }
 
@@ -181,21 +190,21 @@ class KpComponent extends Component
             $file_kp->kp_cover = $fileName;
         }
 
-        if ($this->kp_abstrak instanceof \Illuminate\Http\UploadedFile) {
-            if ($file_kp && $file_kp->kp_abstrak) {
-                Storage::delete('public/kp_abstrak/' . $file_kp->kp_abstrak);
+        if ($this->file instanceof \Illuminate\Http\UploadedFile) {
+            if ($file_kp && $file_kp->file) {
+                Storage::delete('public/kp_file/' . $file_kp->file);
             }
 
-            $abstrakExtension = $this->kp_abstrak->getClientOriginalExtension();
+            $abstrakExtension = $this->file->getClientOriginalExtension();
             $abstrakFileName = $this->kode_kp . '_' . time() . '.' . $abstrakExtension;
-            $abstrakFilePath = $this->kp_abstrak->storeAs('public/kp_abstrak', $abstrakFileName);
+            $abstrakFilePath = $this->file->storeAs('public/kp_file', $abstrakFileName);
 
             if (!$file_kp) {
                 $file_kp = new FileKp();
                 $file_kp->kode_kp = $this->kode_kp;
             }
 
-            $file_kp->kp_abstrak = $abstrakFileName;
+            $file_kp->file = $abstrakFileName;
         }
 
         if ($file_kp) {
@@ -206,6 +215,7 @@ class KpComponent extends Component
 
         $this->resetForm();
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
     // hapus
@@ -225,8 +235,8 @@ class KpComponent extends Component
             }
         }
 
-        if ($kp->fileKp->kp_abstrak) {
-            $filePath = storage_path('app/public/kp_abstrak/' . $kp->fileKp->kp_abstrak);
+        if ($kp->fileKp->file) {
+            $filePath = storage_path('app/public/kp_file/' . $kp->fileKp->file);
             if (File::exists($filePath)) {
                 File::delete($filePath);
             }
@@ -235,6 +245,7 @@ class KpComponent extends Component
 
         session()->flash('success', 'Data Berhasil di Hapus');
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
 
@@ -249,6 +260,15 @@ class KpComponent extends Component
         $this->resetPage();
     }
 
+    public function setUrutan($urutan)
+    {
+        $this->urutan = $urutan;
+    }
+
+    public function dropdownChanged($value)
+    {
+        $this->kategori = $value;
+    }
 
 
     public function resetForm()
@@ -262,7 +282,25 @@ class KpComponent extends Component
 
     public function render()
     {
-        $kp = Kp::where('judul_kp', 'LIKE', '%' . $this->search . '%')->paginate(15);
+        $kpQuery = Kp::query();
+
+        if ($this->kategori == 'judul') {
+            $kpQuery->where('judul_kp', 'LIKE', '%' . $this->search . '%');
+        } elseif ($this->kategori == 'kode') {
+            $kpQuery->where('kode_kp', 'LIKE', '%' . $this->search . '%');
+        } elseif ($this->kategori == 'lokasi') {
+            $kpQuery->where('tempat_kp', 'LIKE', '%' . $this->search . '%');
+        } elseif ($this->kategori == 'tahun') {
+            $kpQuery->where('tahun', 'LIKE', '%' . $this->search . '%');
+        }
+
+        if ($this->urutan == 'asc') {
+            $kpQuery->orderBy('id', 'asc');
+        } elseif ($this->urutan == 'desc') {
+            $kpQuery->orderBy('id', 'desc');
+        }
+
+        $kp = $kpQuery->paginate(15);
         $dosen = Dosen::all();
         return view('livewire.admin.kp-component', ['kp' => $kp, 'dosen' => $dosen])->layout('livewire.admin.layouts.index');
     }

@@ -13,7 +13,7 @@ class DosenComponent extends Component
 
     public $nip, $nama_dosen, $dosenId;
     public $search = '';
-    public $kategori;
+    public $kategori = null;
     public $urutan = '';
 
 
@@ -46,6 +46,7 @@ class DosenComponent extends Component
 
         $this->resetForm();
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
     }
 
     // edit dosen
@@ -76,6 +77,8 @@ class DosenComponent extends Component
 
         $this->resetForm();
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
+
     }
 
     // hapus dosen
@@ -93,6 +96,8 @@ class DosenComponent extends Component
 
         session()->flash('success', 'Data Berhasil di Hapus');
         $this->dispatchBrowserEvent('close-modal');
+        $this->emit('received');
+
     }
 
     // cari
@@ -104,6 +109,11 @@ class DosenComponent extends Component
     public function setUrutan($urutan)
     {
         $this->urutan = $urutan;
+    }
+
+    public function dropdownChanged($value)
+    {
+        $this->kategori = $value;
     }
 
     public function updatingSearch()

@@ -48,6 +48,11 @@
                         <td>{{ $kp->mahasiswa5 }} ({{ $kp->nim5 }})</td>
                     </tr>
                     <tr>
+                        <td>Abstrak</td>
+                        <td>:</td>
+                        <td>{{ $kp->fileKp->kp_abstrak }}</td>
+                    </tr>
+                    <tr>
                         <td>Pembimbing Jurusan</td>
                         <td>:</td>
                         <td>{{ $kp->pembimbingJurusan->nama_dosen }}</td>
@@ -63,13 +68,13 @@
                         <td>{{ $kp->tempat_kp }}</td>
                     </tr>
                     <tr>
-                        <td>Abstrak</td>
+                        <td>File</td>
                         <td>:</td>
                         <td>
-                            @if ($kp->fileKp->file_abstrak === null)
+                            @if ($kp->fileKp->file === null)
                             <p class="text-secondary">-</p>
                             @else
-                            <a href="/storage/kp_abstrak/{{ $kp->fileKp->kp_abstrak }}">Lihat File Abstrak</a>
+                            <a href="/storage/kp_file/{{ $kp->fileKp->file }}">Lihat File</a>
                             @endif
                         </td>
                     </tr>

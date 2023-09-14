@@ -17,14 +17,14 @@
          <div class="card p-md-5 p-3 col-12 col-md-8 mt-5">
             <h5 class="mb-3">{{ $kp->judul_kp }}</h5>
             <div class="d-flex mb-3">
-               {{-- @auth
-               @if ($skripsi->fileKp->kp_abstrak) --}}
+               {{-- @auth --}}
+               @if ($kp->fileKp->file)
                <a href="" download
                   class="btn btn-sm text-white fw-bold" style="background-color: #FE8E45;">
                   Unduh File
                </a>
-               {{-- @endif
-               @endauth --}}
+               @endif
+               {{-- @endauth --}}
             </div>
             <table class="table">
                <tr col-6>
@@ -58,6 +58,16 @@
                         @endif
 
                      </div>
+                  </td>
+               </tr>
+               <tr col-6>
+                  <td class="col-3">
+                     <div class="d-flex gap-2"><i class="ri-file-pdf-line"></i>
+                        <p><strong>Abstrak</strong></p>
+                     </div>
+                  </td>
+                  <td>
+                     <p class="text-secondary">{{ $kp->fileKp->kp_abstrak }}</p>
                   </td>
                </tr>
                <tr col-6>
@@ -100,21 +110,6 @@
                      <p class="text-secondary">{{ $kp->tahun}}</p>
                   </td>
                </tr>
-               <tr col-6>
-                  <td>
-                     <div class="d-flex gap-2"><i class="ri-file-pdf-line"></i>
-                        <p><strong>Abstrak</strong></p>
-                     </div>
-                  </td>
-                  <td>
-                     @if ($kp->fileKp->kp_abstrak === null)
-                     <p class="text-secondary">-</p>
-                     @else
-                     <a href="/storage/kp_abstrak/{{ $kp->fileKp->kp_abstrak }}">Lihat File Abstrak</a>
-                     @endif
-                  </td>
-               </tr>
-
             </table>
          </div>
       </div>

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('identity')->unique();
             $table->string('tahun_masuk');
             $table->string('password');
-            $table->enum('role',['mahasiswa', 'dosen']);
+            $table->enum('role',['mahasiswa', 'dosen'])->default('mahasiswa');
             $table->rememberToken();
             $table->timestamps();
         });

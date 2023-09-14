@@ -2,7 +2,7 @@
     <div class="card bg-white rounded shadow-sm p-2 mt-3">
         <h5 class="text-center">Daftar Skripsi</h5>
         <div class="d-flex justify-content-between align-items-center col-12">
-            <div class="d-flex col-10 gap-1">
+            <div class="d-flex col-10 gap-1 align-items-center">
                 @if (session()->has('success'))
                 <script>
                     Swal.fire({
@@ -32,11 +32,11 @@
                 <div class="card border-0 rounded-0 bg-body shadow-sm rounded col-3 px-1">
                     <form>
                         <div class="p-1 d-flex justify-content-between">
-                            <input wire:model="search" type="text" class="form-input border-0 col-10" placeholder="Cari"
+                            <input wire:model="search" wire:keyup.debounce.500ms="render" type="text" class="form-input border-0 col-10" placeholder="Cari"
                                 style="font-size: 14px;" name="keyword"
                                 onfocus="this.style.outline='none'; this.style.borderColor='transparent'; this.style.boxShadow='none';" />
                             <div class=" card border-0 rounded-2"
-                                style="background-color: #536bf6; width: 35px; height: 35px">
+                                style="background-color: #6610F2; width: 35px; height: 35px">
                                 <button type="submit" class=""
                                     style="border: none; background-color: transparent; padding: 5px 0;">
                                     <i class="ri-search-2-line" style="color: #fff; margin-top: 10px"></i>
@@ -45,27 +45,74 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="col-2">
+                    <div wire:model="kategori" wire:change="render" wire:ignore class="select-box position-relative" style="font-size: 14px">
+                        <div class="options-container position-absolute col-12">
+                            <div class="option">
+                                <input type="radio" class="radio" id="judul" name="category" value="judul" />
+                                <label for="judul">Judul</label>
+                            </div>
+                
+                            <div class="option">
+                                <input type="radio" class="radio" id="kode" name="category" value="kode" />
+                                <label for="kode">Kode</label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" class="radio" id="nim" name="category" value="nim" />
+                                <label for="nim">NIM</label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" class="radio" id="penulis" name="category" value="penulis" />
+                                <label for="penulis">Penulis</label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" class="radio" id="tahun" name="category" value="tahun" />
+                                <label for="tahun">Tahun Lulus</label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" class="radio" id="peminatan" name="category" value="peminatan" />
+                                <label for="peminatan">Penulis</label>
+                            </div>
+                        </div>
+                
+                        <div class="selected d-flex justify-content-between align-items-center col-12">
+                            <span>Pilih</span>
+                            <i class="ri-arrow-drop-down-line"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <button wire:click="setUrutan('asc')" type="button" class="btn btn-sm"
+                        style="background-color: #6610F2; color: #fff"><i class="ri-sort-asc"></i></button>
+                    <button wire:click="setUrutan('desc')" type="button" class="btn btn-sm"
+                        style="background-color: #6610F2; color: #fff"><i class="ri-sort-desc"></i></button>
+                </div>
     
             </div>
     
            <div class="col-2 d-flex justify-content-end">
-            <a href="" class="col-6 btn btn btn-primary btn-sm rounded-sm mt-3 mb-3 ml-3 d-flex justify-content-center py-2"
-                data-bs-toggle="modal" data-bs-target="#addSkripsiModal" style="gap: 5px;"><i
-                    class="ri-add-box-line"></i>Tambah</a>
-        </div>
+                <a href="" class="col-6 btn btn btn-primary btn-sm rounded-sm mt-3 mb-3 ml-3 d-flex justify-content-center py-2"
+                    data-bs-toggle="modal" data-bs-target="#addSkripsiModal" style="gap: 5px;"><i
+                        class="ri-add-box-line"></i>Tambah</a>
+            </div>
         </div>
         <div class="table-responsive">
             <table class="text-center table pb-3" id="dataTable">
                 <thead>
                     <tr class="table-info">
                         <th class="">#</th>
-                        <th class="col-1">Kode</th>
+                        <th class="">Kode</th>
                         <th class="col-1">NIM</th>
                         <th class="col-2">Penulis</th>
                         <th class="col-4">Judul</th>
                         <th class="col-2">Tahun Lulus</th>
                         <th class="col-1">Peminatan</th>
-                        <th class="col-1">Action</th>
+                        <th class="col-2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -196,14 +243,21 @@
                         @error('peminatan') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="ta_abstrak">Abstrak</label>
+                            <textarea wire:model='ta_abstrak' class="form-control @error('ta_abstrak') is-invalid @enderror"
+                                name="ta_abstrak" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3">
                         <label for="ta_cover">Cover</label>
                         <input wire:model='ta_cover' type="file" class="form-control @error('ta_cover') is-invalid @enderror" name="ta_cover">
                         @error('ta_cover') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="ta_abstrak">File Abstrak</label>
-                        <input wire:model='ta_abstrak' type="file" class="form-control @error('ta_abstrak') is-invalid @enderror" name="ta_abstrak">
-                        @error('ta_abstrak') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
+                        <label for="file">File Skripsi</label>
+                        <input wire:model='file' type="file" class="form-control @error('file') is-invalid @enderror" name="file">
+                        @error('file') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
                         <label for="lokasi">Lokasi Penyimpanan<span class="text-danger fw-bolder">*</span></label>
@@ -333,17 +387,24 @@
                         @error('peminatan') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="ta_abstrak">Abstrak</label>
+                            <textarea wire:model='ta_abstrak' class="form-control @error('ta_abstrak') is-invalid @enderror"
+                                name="ta_abstrak" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3">
                         <label for="ta_cover">Cover</label>
                         <input wire:model='ta_cover' type="file"
                             class="form-control @error('ta_cover') is-invalid @enderror" name="ta_cover">
                         @error('ta_cover') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="ta_abstrak">File Abstrak</label>
-                        <input wire:model='ta_abstrak' type="file"
-                            class="form-control @error('ta_abstrak') is-invalid @enderror" name="ta_abstrak">
-                        @error('ta_abstrak') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
+                        <label for="file">File Skripsi</label>
+                        <input wire:model='file' type="file" class="form-control @error('file') is-invalid @enderror" name="file">
+                        @error('file') <span class="text-danger fst-italic">{{ $message }}</span> @enderror
                     </div>
+
                     <div class="mb-3">
                         <label for="lokasi">Lokasi Penyimpanan<span class="text-danger fw-bolder">*</span></label>
                         <input wire:model='lokasi' type="text"
@@ -393,27 +454,70 @@
 </div>
 @push('scripts')
 <script>
-    window.addEventListener('close-modal', event =>{
-            $('#addSkripsiModal').modal('hide');
-            $('#editSkripsiModal').modal('hide');
-            $('#deleteSkripsiModal').modal('hide');
+    window.addEventListener('close-modal', event => {
+        $('#addSkripsiModal').modal('hide');
+        $('#editSkripsiModal').modal('hide');
+        $('#deleteSkripsiModal').modal('hide');
+    });
+
+    window.addEventListener('show-edit-skripsi-modal', event => {
+        $('#editSkripsiModal').modal('show');
+    });
+
+    window.addEventListener('show-delete-skripsi-modal', event => {
+        $('#deleteSkripsiModal').modal('show');
+    });
+
+    
+
+    //dropdown
+    const initializeDropdown = () => {
+        const selected1 = document.querySelector(".select-box:nth-of-type(1) .selected");
+        const optionsContainer1 = document.querySelector(".select-box:nth-of-type(1) .options-container");
+        const optionsList1 = document.querySelectorAll(".select-box:nth-of-type(1) .option");
+
+        selected1.addEventListener("click", () => {
+            optionsContainer1.classList.toggle("active");
+            selected1.classList.toggle("active");
+
+            // Putar ikon saat dropdown aktif
+            const icon1 = selected1.querySelector("i");
+            if (optionsContainer1.classList.contains("active")) {
+                icon1.style.transform = "rotate(180deg)";
+            } else {
+                icon1.style.transform = "rotate(0deg)";
+            }
         });
 
-        window.addEventListener('show-edit-skripsi-modal', event =>{
-            $('#editSkripsiModal').modal('show');
-        });
+        optionsList1.forEach((o) => {
+            o.addEventListener("click", () => {
+                selected1.innerHTML = o.querySelector("label").innerHTML;
+                optionsContainer1.classList.remove("active");
+                selected1.classList.remove("active");
 
-        window.addEventListener('show-delete-skripsi-modal', event =>{
-            $('#deleteSkripsiModal').modal('show');
-        });
-
-        document.addEventListener('livewire:load', function () {
-            Livewire.on('resetFileInput', function () {
-                let input = document.querySelector('input[type="file"]');
-                if (input) {
-                    input.value = null;
-                }
+                // Tambahkan kembali ikon setelah item terpilih
+                const icon1 = document.createElement("i");
+                icon1.classList.add("ri-arrow-drop-down-line");
+                selected1.appendChild(icon1);
             });
         });
+    };
+
+    // Panggil fungsi untuk menginisialisasi dropdown setelah komponen Livewire di-refresh
+    Livewire.on('received', () => {
+        initializeDropdown();
+    });
+
+    // Inisialisasi dropdown saat halaman pertama kali dimuat
+    initializeDropdown();
+
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('resetFileInput', function () {
+            let input = document.querySelector('input[type="file"]');
+            if (input) {
+                input.value = null;
+            }
+        });
+    });
 </script>
 @endpush
